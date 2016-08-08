@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:sec="http://www.springframework.org/schema/security" xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+         http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+         http://www.springframework.org/schema/security 
+         http://www.springframework.org/schema/security/spring-security-4.1.xsd">
+
+  <sec:http pattern="/resources/**" security="none" />
+
+  <sec:http use-expressions="true">
+    <sec:intercept-url pattern="/" access="permitAll" />
+    <sec:intercept-url pattern="/login" access="permitAll" />
+    <sec:intercept-url pattern="/registration" access="permitAll" />
+    <sec:intercept-url pattern="/item" access="permitAll" />
+    <sec:intercept-url pattern="/user/**" access="isAuthenticated()" />
+    <sec:intercept-url pattern="/item/**" access="hasRole('admin')" />
+
+    <sec:form-login 
+      login-page="/login" 
+      login-processing-url="/loginCheck" 
+      username-parameter="login"
+      password-parameter="password" 
+      default-target-url="/" 
+      always-use-default-target="true"
+      authentication-failure-url="/login?error=true" />
+    <sec:csrf disabled="true" />
+    <sec:access-denied-handler error-page="/403" />
+  </sec:http>
+
+  <sec:authentication-manager alias="applicationAuthenticationManager">
+    <sec:authentication-provider>
+      <sec:jdbc-user-service data-source-ref="dataSource"
+        users-by-username-query="SELECT id, password, true FROM user WHERE lower(login) = lower(?)"
+        authorities-by-username-query="SELECT id, role FROM user WHERE id = ?" />
+    </sec:authentication-provider>
+  </sec:authentication-manager>
+
+</beans>
