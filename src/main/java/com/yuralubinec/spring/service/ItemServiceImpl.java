@@ -6,7 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yuralubinec.spring.dao.ItemDaoImpl;
+import com.yuralubinec.spring.dao.ItemDao;
 import com.yuralubinec.spring.model.Item;
 
 @Service
@@ -15,7 +15,7 @@ public class ItemServiceImpl implements ItemService {
     private static final Logger LOGGER = Logger.getLogger(ItemServiceImpl.class);
 
     @Autowired
-    ItemDaoImpl dao;
+    ItemDao dao;
 
     @Override
     public Item findById(int id) {

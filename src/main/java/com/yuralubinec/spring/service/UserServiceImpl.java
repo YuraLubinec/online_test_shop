@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.yuralubinec.spring.dao.UserDao;
 import com.yuralubinec.spring.model.User;
 
@@ -51,7 +52,8 @@ public class UserServiceImpl implements UserService {
             entity.setUserItems(user.getUserItems());
         }
     }
-
+    
+    @Override
     public boolean isLoginUnique(String login, Integer id) {
         User user = findByLogin(login);
         return (user == null || ((id != null) && (user.getId() == id)));

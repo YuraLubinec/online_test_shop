@@ -1,15 +1,19 @@
 package com.yuralubinec.spring.editor;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
-import com.yuralubinec.spring.model.Item;
-import com.yuralubinec.spring.service.ItemServiceImpl;
+import org.springframework.stereotype.Component;
 
+import com.yuralubinec.spring.model.Item;
+import com.yuralubinec.spring.service.ItemService;
+
+@Component
 public class ItemEditor extends CustomCollectionEditor {
 
     @Autowired
-    ItemServiceImpl itemServiceImpl;
+    ItemService itemServiceImpl;
 
     public ItemEditor() {
         super(List.class);

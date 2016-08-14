@@ -4,17 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
 import com.yuralubinec.spring.model.User;
-import com.yuralubinec.spring.service.UserServiceImpl;
+import com.yuralubinec.spring.service.UserService;
 
 @Component
 public class UserValidator implements Validator {
 
     @Autowired
-    User user;
-
-    @Autowired
-    UserServiceImpl userServiceImpl;
+    UserService userServiceImpl;
 
     @Override
     public boolean supports(Class<?> clazz) {

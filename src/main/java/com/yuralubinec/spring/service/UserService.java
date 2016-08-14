@@ -14,4 +14,6 @@ public interface UserService {
 
     public void update(User user);
 
+    public boolean isLoginUnique(String login, Integer id);
+
 }

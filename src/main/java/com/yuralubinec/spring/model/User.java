@@ -47,7 +47,7 @@ public class User implements Serializable {
 
     @NotEmpty
     @Column(name = "user_role", length = 15, nullable = false)
-    private String userRole;
+    private String userRole = UserRole.CUSTOMER.getUserRole();
 
     @NotEmpty
     @ManyToMany
