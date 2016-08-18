@@ -219,7 +219,7 @@
         <configuration>
           <url>http://localhost:8080/manager/text</url>
           <server>localtomcat</server>
-          <path>/shop-online</path>
+          <path>/online_test_shop</path>
         </configuration>
       </plugin>
     </plugins>
