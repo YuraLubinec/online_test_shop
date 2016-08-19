@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.yuralubinec.spring.dao.ItemDao;
 import com.yuralubinec.spring.model.Item;
@@ -17,21 +18,25 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     ItemDao dao;
 
+    @Transactional
     @Override
     public Item findById(int id) {
         return dao.findById(id);
     }
 
+    @Transactional
     @Override
     public Item findByName(String name) {
         return dao.findByName(name);
     }
 
+    @Transactional
     @Override
     public List<Item> findAll() {
         return dao.findAllItems();
     }
-
+    
+    @Transactional
     @Override
     public void update(Item item) {
         Item entity = dao.findById(item.getId());
@@ -42,12 +47,14 @@ public class ItemServiceImpl implements ItemService {
             entity.setAmount(item.getAmount());
         }
     }
-
+    
+    @Transactional
     @Override
     public void save(Item item) {
         dao.save(item);
     }
 
+    @Transactional
     @Override
     public void delete(int id) {
         dao.delete(id);

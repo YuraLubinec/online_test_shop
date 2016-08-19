@@ -18,7 +18,7 @@
                   <td><c:out value="${item.name}"></c:out></td>
                   <td><c:out value="${item.description}"></c:out></td>
                   <td><c:out value="${item.amount}"></c:out></td>
-                  <td><c:out value="${item.name}"></c:out></td>
+                  <td><c:out value="${item.photo}"></c:out></td>
                   
                 </tr>
               </c:forEach>

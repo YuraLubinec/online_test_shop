@@ -20,9 +20,9 @@
       </div>
     </div>
     <div class="content">
-<%--       <c:if test="${not empty message}"> --%>
-<%--         <p>${message}</p> --%>
-<%--       </c:if> --%>
+      <c:if test="${not empty message}">
+        <p>${message}</p>
+      </c:if>
       <img src=<c:url value="/resources/travolta.gif" /> title="error" />
       <p>
         <span>Ohh.....</span>You Requested the page that is no longer There.

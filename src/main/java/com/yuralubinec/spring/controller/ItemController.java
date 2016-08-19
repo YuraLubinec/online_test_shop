@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.yuralubinec.spring.service.ItemService;
 
 @Controller
-@RequestMapping(value = "/home")
+@RequestMapping(value = "/")
 public class ItemController {
 
     public static final String ITEMS = "items";
@@ -22,6 +22,7 @@ public class ItemController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String getAllItems(Model model) {
+    	System.out.println("yeah");
         model.addAttribute(ITEMS, itemServiceIml.findAll());
 
         return "items";
