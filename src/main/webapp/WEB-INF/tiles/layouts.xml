@@ -9,7 +9,7 @@
 		<put-attribute name="body" value="" />
 	</definition>
 	
-	<definition name="login" template="/WEB-INF/views/login.jsp">
+	<definition name="login" template="/WEB-INF/views/tiles-template/login.jsp">
 	</definition>
 	
 <!-- 	<definition name="home" extends="DefaultTemplate"> -->

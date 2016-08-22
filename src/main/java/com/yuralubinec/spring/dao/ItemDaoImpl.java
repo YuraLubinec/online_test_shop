@@ -17,11 +17,13 @@ public class ItemDaoImpl extends AbstractDao<Integer, Item> implements ItemDao {
         return getById(id);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public Item findByName(String name) {
+    public List<Item> findItemsWithFilter(String name) {
         Criteria crit = createEntityCriteria();
-        crit.add(Restrictions.eq("name", name));
-        return (Item) crit.uniqueResult();
+        crit.add(Restrictions.ilike("name","%" + name + "%"));
+        crit.addOrder(Order.desc("id"));
+        return (List<Item>) crit.list();
     }
 
     @SuppressWarnings("unchecked")

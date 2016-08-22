@@ -37,7 +37,7 @@ public abstract class AbstractDao<ID extends Serializable, T> {
         getSesssion().delete(entity);       
     }
     
-    @SuppressWarnings("deprecation")
+    
     protected Criteria createEntityCriteria(){
         return getSesssion().createCriteria(persClass);
     }

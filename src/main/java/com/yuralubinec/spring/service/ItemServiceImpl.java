@@ -26,8 +26,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional
     @Override
-    public Item findByName(String name) {
-        return dao.findByName(name);
+    public List<Item> findWithFilter(String name) {
+        return dao.findItemsWithFilter(name);
     }
 
     @Transactional

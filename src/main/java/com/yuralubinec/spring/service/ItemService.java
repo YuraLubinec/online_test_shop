@@ -8,7 +8,7 @@ public interface ItemService {
 
     public Item findById(int id);
 
-    public Item findByName(String name);
+    public List<Item> findWithFilter(String name);
 
     public List<Item> findAll();
     

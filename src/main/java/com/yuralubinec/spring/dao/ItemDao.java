@@ -8,7 +8,7 @@ public interface ItemDao {
 
     Item findById(int id);
 
-    Item findByName(String name);
+    List <Item> findItemsWithFilter(String name);
 
     List<Item> findAllItems();
 
