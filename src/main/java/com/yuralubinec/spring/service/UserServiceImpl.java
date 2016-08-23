@@ -53,6 +53,7 @@ public class UserServiceImpl implements UserService {
         }
     }
     
+    @Transactional
     @Override
     public boolean isLoginUnique(String login, Integer id) {
         User user = findByLogin(login);

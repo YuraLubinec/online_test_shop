@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+  <definition name="userRegistration" extends="DefaultTemplate">
+    <put-attribute name="title" value="Registration" />
+    <put-attribute name="body" value="/WEB-INF/views/tiles-template/user/userRegistrationUpdate.jsp" />
+  </definition>
+  
+<!--   <definition name="userUpdate" extends="DefaultTemplate"> -->
+<!--     <put-attribute name="title" value="Update user info" /> -->
+<!--     <put-attribute name="body" value="/WEB-INF/views/tiles-template/user/userRegistrationUpdate.jsp" /> -->
+<!--   </definition> -->
+  
+</tiles-definitions>

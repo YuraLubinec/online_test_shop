@@ -49,7 +49,6 @@ public class User implements Serializable {
     @Column(name = "user_role", length = 15, nullable = false)
     private String userRole = UserRole.CUSTOMER.getUserRole();
 
-    @NotEmpty
     @ManyToMany
     @JoinTable(name = "user_item", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
             @JoinColumn(name = "item_id") })

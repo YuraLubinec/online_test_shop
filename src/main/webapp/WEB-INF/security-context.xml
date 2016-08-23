@@ -33,7 +33,7 @@
     <sec:authentication-provider>
       <sec:jdbc-user-service data-source-ref="dataSource"
         users-by-username-query="SELECT id, password, true FROM user WHERE lower(login) = lower(?)"
-        authorities-by-username-query="SELECT id, role FROM user WHERE id = ?" />
+        authorities-by-username-query="SELECT id, user_role FROM user WHERE lower(login) = lower(?)" />
     </sec:authentication-provider>
   </sec:authentication-manager>
 
