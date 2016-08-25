@@ -7,12 +7,20 @@
   <form:form action="" method="POST" modelAttribute="user" class="">
     <fieldset>
 
-<%--       <form:hidden path="id" /> --%>
+      <form:hidden path="id" />
 
-      <div class="form-group">
-        <c:if test="${not empty param.success}">
+      <div class="">
+        <c:if test="${not empty param.registrationSuccess}">
           <div class="">
             <strong>Success!</strong> Account has been successfully created!
+          </div>
+        </c:if>
+      </div>
+      
+      <div class="">
+        <c:if test="${not empty param.updateSuccess}">
+          <div class="">
+            <strong>Success!</strong> Account has been successfully updated!
           </div>
         </c:if>
       </div>
@@ -30,7 +38,7 @@
 
         <div class="">
           <label class="">Password*:</label>
-          <div class="">
+          <div class="" >
             <form:input path="password" class="" cssErrorClass="" />
             <form:errors path="password" class="" />
           </div>
@@ -50,11 +58,12 @@
           </div>
         </div>
       </div>
-
+      
       <div class="">
         <div class="">
           <div class="">
             <button id="" type="submit" class="">Save</button>
+            <a href=<c:url value="/" /> class="">Cancel</a>
           </div>
         </div>
       </div>
