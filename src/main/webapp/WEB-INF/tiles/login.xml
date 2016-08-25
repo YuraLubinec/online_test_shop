@@ -5,7 +5,7 @@
 
   <definition name="login" extends="DefaultTemplate">
     <put-attribute name="title" value="Login" />
-    <put-attribute name="body" value="/WEB-INF/views/tiles-template/login.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/login.jsp" />
   </definition>
   
 </tiles-definitions>

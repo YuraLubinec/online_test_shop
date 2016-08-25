@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -20,21 +20,21 @@ public class LoginLogoutController {
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String getLoginPage(Model model){
-    	if (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken) {
-            return "login";
-        }
-        return "redirect:/login?success=true";
+        
+//    	if (SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken) {
+//    	    System.out.println("fail");
+//            return "login";
+//        }
+        return "login";
     }
-    
-//    @RequestMapping(value = "/login", method = RequestMethod.POST){
-//    	
-//    }
     
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null) {
+            System.out.println(auth);
             new SecurityContextLogoutHandler().logout(request, response, auth);
+            System.out.println(auth);
         }
         return "redirect:/login?logout=true";
     }

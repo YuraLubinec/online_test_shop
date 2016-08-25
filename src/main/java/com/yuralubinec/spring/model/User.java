@@ -45,7 +45,6 @@ public class User implements Serializable {
     @Column(name = "surname", length = 75, nullable = false)
     private String surname;
 
-    @NotEmpty
     @Column(name = "user_role", length = 15, nullable = false)
     private String userRole = UserRole.CUSTOMER.getUserRole();
 

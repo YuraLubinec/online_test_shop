@@ -5,7 +5,7 @@
 
   <definition name="userRegistration" extends="DefaultTemplate">
     <put-attribute name="title" value="Registration" />
-    <put-attribute name="body" value="/WEB-INF/views/tiles-template/user/userRegistrationUpdate.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/user/userRegistrationUpdate.jsp" />
   </definition>
   
 <!--   <definition name="userUpdate" extends="DefaultTemplate"> -->

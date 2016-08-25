@@ -9,17 +9,17 @@
 		<put-attribute name="body" value="" />
 	</definition>
 	
-	<definition name="login" template="/WEB-INF/views/tiles-template/login.jsp">
+	<definition name="login" template="/WEB-INF/views/login.jsp">
 	</definition>
 	
 <!-- 	<definition name="home" extends="DefaultTemplate"> -->
 <!-- 		<put-attribute name="body" value="/WEB-INF/views/home.jsp" /> -->
 <!-- 	</definition> -->
 
-	<definition name="account" extends="DefaultTemplate">
-		<put-attribute name="title" value="Account" />
-		<put-attribute name="body" value="/WEB-INF/views/account.jsp" />
-	</definition>
+<!-- 	<definition name="account" extends="DefaultTemplate"> -->
+<!-- 		<put-attribute name="title" value="Account" /> -->
+<!-- 		<put-attribute name="body" value="/WEB-INF/views/account.jsp" /> -->
+<!-- 	</definition> -->
 	
   <definition name="error" template="/WEB-INF/views/error.jsp">
   </definition>

@@ -5,12 +5,12 @@
 
   <definition name="items" extends="DefaultTemplate">
     <put-attribute name="title" value="Items" />
-    <put-attribute name="body" value="/WEB-INF/views/tiles-template/item/items.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/item/items.jsp" />
   </definition>
   
   <definition name="itemInfo" extends="DefaultTemplate">
     <put-attribute name="title" value="Item info" />
-    <put-attribute name="body" value="/WEB-INF/views/tiles-template/item/itemInfo.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/item/itemInfo.jsp" />
   </definition>
   
 </tiles-definitions>

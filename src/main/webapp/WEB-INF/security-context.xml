@@ -12,7 +12,7 @@
   <sec:http use-expressions="true">
     <sec:intercept-url pattern="/" access="permitAll" />
     <sec:intercept-url pattern="/login" access="permitAll" />
-    <sec:intercept-url pattern="/registration" access="permitAll" />
+    <sec:intercept-url pattern="/registration" access="isAuthenticated()" />
     <sec:intercept-url pattern="/item/**" access="permitAll" />
     <sec:intercept-url pattern="/user/**" access="isAuthenticated()" />
 <!--     <sec:intercept-url pattern="/item/**" access="hasRole('admin')" /> -->
@@ -20,7 +20,7 @@
     <sec:form-login 
       login-page="/login" 
       login-processing-url="/loginCheck" 
-      username-parameter="login"
+      username-parameter="username"
       password-parameter="password" 
       default-target-url="/" 
       always-use-default-target="true"
@@ -33,7 +33,7 @@
     <sec:authentication-provider>
       <sec:jdbc-user-service data-source-ref="dataSource"
         users-by-username-query="SELECT id, password, true FROM user WHERE lower(login) = lower(?)"
-        authorities-by-username-query="SELECT id, user_role FROM user WHERE lower(login) = lower(?)" />
+        authorities-by-username-query="SELECT id, user_role FROM user WHERE id = ?" />
     </sec:authentication-provider>
   </sec:authentication-manager>
 
