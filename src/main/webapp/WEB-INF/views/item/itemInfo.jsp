@@ -4,22 +4,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <table id="item">
-	<thead>
-		<tr>
-			<th class="col-md-2">Name</th>
-			<th class="col-md-5">Description</th>
-			<th class="col-md-1">Amount</th>
-			<th class="col-md-4">Photo</th>
-		</tr>
-	</thead>
-	<tbody>
-		
-			<tr class="">
-				<td><c:out value="${item.name}"></c:out></td>
-				<td><c:out value="${item.description}"></c:out></td>
-				<td><c:out value="${item.amount}"></c:out></td>
-				<td><c:out value="${item.photo}"></c:out></td>
-			</tr>
-		
-	</tbody>
+  <thead>
+    <tr>
+      <th class="col-md-2">Name</th>
+      <th class="col-md-5">Description</th>
+      <th class="col-md-1">Amount</th>
+      <th class="col-md-4">Photo</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <tr class="">
+      <td>
+        <c:out value="${item.name}"></c:out>
+      </td>
+      <td>
+        <c:out value="${item.description}"></c:out>
+      </td>
+      <td>
+        <c:out value="${item.amount}"></c:out>
+      </td>
+      <td>
+        <c:out value="${item.photo}"></c:out>
+      </td>
+    </tr>
+
+  </tbody>
 </table>

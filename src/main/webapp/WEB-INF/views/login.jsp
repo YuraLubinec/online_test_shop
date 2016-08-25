@@ -2,16 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div class="">
-  <c:if test="${empty param.logout}">
+<c:if test="${succes==true}">
+  <div class="">
     <div class="">
       <strong>Success!</strong> You have successfully logged in!
       <a href=<c:url value="/logout" /> class="">Logout</a>
     </div>
-  </c:if>
-</div>
+  </div>
+</c:if>
 
-<c:if test="${not empty param.logout}">
+<c:if test="${succes!=true}">
   <div class="">
     <div class="">
       <div class="">
@@ -20,7 +20,7 @@
             <h3 class="">Please Sign In</h3>
           </div>
           <div class="">
-            
+
             <c:if test="${not empty param.error}">
               <div class="alert alert-danger">
                 <strong>Error!</strong> Invalid login and password!
@@ -38,7 +38,7 @@
                 <input type="submit" class="" value="Login" />
               </fieldset>
             </form>
-          
+
           </div>
         </div>
       </div>
