@@ -64,7 +64,7 @@ public class Item implements Serializable {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-
+    
     @Column(name = "photo")
     public byte[] getPhoto() {
         return photo;

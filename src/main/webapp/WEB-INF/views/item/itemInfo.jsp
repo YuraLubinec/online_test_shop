@@ -3,31 +3,33 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<table id="item">
-  <thead>
-    <tr>
-      <th class="col-md-2">Name</th>
-      <th class="col-md-5">Description</th>
-      <th class="col-md-1">Amount</th>
-      <th class="col-md-4">Photo</th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="">
 
-    <tr class="">
-      <td>
-        <c:out value="${item.name}"></c:out>
-      </td>
-      <td>
-        <c:out value="${item.description}"></c:out>
-      </td>
-      <td>
-        <c:out value="${item.amount}"></c:out>
-      </td>
-      <td>
-        <c:out value="${item.photo}"></c:out>
-      </td>
-    </tr>
+  <div class="">
+    <label class="">Name:</label>
+    <c:out value="${item.name}"></c:out>
+  </div>
+</div>
 
-  </tbody>
-</table>
+<div class="">
+
+  <div class="">
+    <label class="">Description:</label>
+    <c:out value="${item.description}"></c:out>
+  </div>
+</div>
+
+<div class="">
+  <div class="">
+    <label class="">Amount:</label>
+    <c:out value="${item.amount}"></c:out>
+  </div>
+</div>
+
+<div class="">
+  <div class="">
+    <label class="">Photo:</label>
+    <img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
+  </div>  
+</div>
+

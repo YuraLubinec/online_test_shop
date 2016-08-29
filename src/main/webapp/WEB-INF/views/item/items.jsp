@@ -41,7 +41,7 @@
             <c:out value="${item.amount}"></c:out>
           </td>
           <td>
-            <c:out value="${item.photo}"></c:out>
+          	<img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
           </td>
 
         </tr>
