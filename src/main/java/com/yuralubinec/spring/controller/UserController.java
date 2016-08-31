@@ -46,8 +46,7 @@ public class UserController {
     public String getUserRegistrationPage(Model model) {
     	
     	model.addAttribute(USER, new User());
-    	System.out.println("yeah");
-        return "userRegistration";
+    	return "userRegistration";
     }
 
    

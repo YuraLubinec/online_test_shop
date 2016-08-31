@@ -50,14 +50,14 @@ public class ItemController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String getAllItems(@ModelAttribute ItemFilterDTO itemFilterDTO, Model model) {
-
+		String filterName = itemFilterDTO.getItemNameFilter();
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (!(authentication instanceof AnonymousAuthenticationToken)) {
 			model.addAttribute(CURRENT_USER_NAME,
-					userServiceImpl.findById(Integer.parseInt(authentication.getName())).getName());
+					userServiceImpl.findById(Integer.parseInt(authentication.getName())).getName());	
 		}
-		if (itemFilterDTO.getItemNameFilter() != null && itemFilterDTO.getItemNameFilter().length() != 0) {
-			model.addAttribute(ITEMS, itemServiceIml.findWithFilter(itemFilterDTO.getItemNameFilter()));
+		if (filterName.length() != 0) {
+			model.addAttribute(ITEMS, itemServiceIml.findWithFilter(filterName));
 		} else {
 			model.addAttribute(ITEMS, itemServiceIml.findAll());
 		}
