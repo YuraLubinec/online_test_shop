@@ -15,6 +15,7 @@ public class GeneralController {
     @ExceptionHandler(RuntimeException.class)
     public String error500(RuntimeException e, Model model) {
         model.addAttribute(ERROR_MASSAGE, e.getMessage());
+        e.printStackTrace();
         return "error";
     }
 

@@ -8,31 +8,14 @@
 </c:if>
 
 <div>
-  <form:form modelAttribute="itemFilterDTO" method="GET">
-    <fieldset>
-      <h4>Filters</h4>
-      <div class="">
-        <div class="">
-          <form:input type="text" path="itemNameFilter" class="form-control" placeholder="Item name" />
-        </div>
-      </div>
-    </fieldset>
-  </form:form>
-  
-  <sec:authorize access ="hasAuthority('ADMIN')">
-    <a href=<c:url value='/item/newItem'/>>New Item</a>
-  </sec:authorize>
-
+ 
   <table id="items">
     <thead>
       <tr>
         <th class="col-md-2">Name</th>
-        <th class="col-md-3">Description</th>
+        <th class="col-md-5">Description</th>
         <th class="col-md-1">Amount</th>
-        <th class="col-md-2">Photo</th>
-        <sec:authorize access = "isAuthenticated()" >
-          <th class="col-md-1">Add To Cart</th>
-        </sec:authorize>
+        <th class="col-md-4">Photo</th>
       </tr>
     </thead>
     <tbody>
@@ -51,19 +34,9 @@
           <td>
           	<img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
           </td>
-          <td> 
-          	<sec:authorize access="isAuthenticated()">
-          	  <button id="${item.id}" class="addToCart">Add to Cart</button>
-          	</sec:authorize>     	
-          </td>
 
         </tr>
       </c:forEach>
     </tbody>
   </table>
 </div>
-
-<input id="contextPath" type="hidden" value="${pageContext.request.contextPath}" />
-
-<!-- Main page script -->
-<script src=<c:url value="/resources/js/item/item.js" />></script>

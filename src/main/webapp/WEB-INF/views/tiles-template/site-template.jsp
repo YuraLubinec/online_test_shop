@@ -20,13 +20,13 @@
   <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
 
   <!-- Bootstrap -->
-  <link href="<c:url value = "/store-components/css/bootstrap.min.css" />" rel="stylesheet">
+  <link href="<c:url value = "/resources/store-components/css/bootstrap.min.css" />" rel="stylesheet">
 
   <!-- Font Awesome -->
   <link href="<c:url value = "/resources/store-components/css/font-awesome.min.css" />" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link href="<c:url value = "/resources/store-components/ccss/owl.carousel.css" />" rel="stylesheet">
+  <link href="<c:url value = "/resources/store-components/css/owl.carousel.css" />" rel="stylesheet">
   <link href="<c:url value = "/resources/store-components/css/style.css" />" rel="stylesheet">
   <link href="<c:url value = "/resources/store-components/css/responsive.css" />" rel="stylesheet">
 
