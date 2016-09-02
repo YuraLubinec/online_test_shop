@@ -19,13 +19,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 4851794011543843845L;
-    
-    private int id; 
-    private String name; 
+
+    private int id;
+    private String name;
     private String description;
-    private int amount;
     private byte[] photo;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
@@ -35,7 +34,7 @@ public class Item implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     @NotEmpty
     @Column(name = "name", nullable = false)
     public String getName() {
@@ -45,7 +44,7 @@ public class Item implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    
+
     @NotEmpty
     @Column(name = "description", nullable = false)
     public String getDescription() {
@@ -56,15 +55,6 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    @Column(name = "amount")
-    public int getAmount() {
-        return amount;
-    }
-
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-    
     @Column(name = "photo")
     public byte[] getPhoto() {
         return photo;

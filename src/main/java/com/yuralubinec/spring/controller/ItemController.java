@@ -123,14 +123,21 @@ public class ItemController {
     public void addItemToCart(@RequestBody int id) {
 
         // need to add validation for unique value
-
-        // remove if + add null pointer exception handler
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+        try {
             User user = userServiceImpl.findById(Integer.parseInt(authentication.getName()));
             user.getUserItems().add(itemServiceImpl.findById(id));
             userServiceImpl.update(user);
+        } catch (NullPointerException e) {
+            LOGGER.error("User is not authorised", e);
+            throw e;
         }
+    }
+    
+    @RequestMapping(value = "item/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteItem(@RequestBody int id) {
+
+        itemServiceImpl.delete(id);
     }
 }

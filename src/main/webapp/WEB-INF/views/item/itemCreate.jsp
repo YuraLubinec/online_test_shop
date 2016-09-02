@@ -27,15 +27,6 @@
         </div>
 
         <div class="">
-          <label class="">Amount:</label>
-          <div class="">
-            <form:input type="text" path="amount" class="" />
-            <form:errors path="amount" class="" />
-          </div>
-        </div>
-
-
-        <div class="">
          <label class="">Photo:</label>
           <div class="">
             <form:input type="file" path="photo" class="" />

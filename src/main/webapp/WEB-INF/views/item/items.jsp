@@ -26,12 +26,14 @@
   <table id="items">
     <thead>
       <tr>
-        <th class="col-md-2">Name</th>
+        <th class="col-md-1">Name</th>
         <th class="col-md-3">Description</th>
-        <th class="col-md-1">Amount</th>
         <th class="col-md-2">Photo</th>
         <sec:authorize access = "isAuthenticated()" >
           <th class="col-md-1">Add To Cart</th>
+        </sec:authorize>
+        <sec:authorize access = "hasAuthority('ADMIN')" >
+          <th class="col-md-1">Remove</th>
         </sec:authorize>
       </tr>
     </thead>
@@ -46,17 +48,18 @@
             <c:out value="${item.description}"></c:out>
           </td>
           <td>
-            <c:out value="${item.amount}"></c:out>
-          </td>
-          <td>
           	<img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
           </td>
-          <td> 
-          	<sec:authorize access="isAuthenticated()">
+          <sec:authorize access="isAuthenticated()">
+          	<td>
           	  <button id="${item.id}" class="addToCart">Add to Cart</button>
-          	</sec:authorize>     	
-          </td>
-
+          	</td>
+          </sec:authorize>
+          <sec:authorize access = "hasAuthority('ADMIN')" >
+          	<td>
+          	  <button id="${item.id}" class="delete">Remove Item</button>
+          	</td>
+          </sec:authorize>
         </tr>
       </c:forEach>
     </tbody>

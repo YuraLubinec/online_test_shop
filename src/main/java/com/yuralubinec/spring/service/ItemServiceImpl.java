@@ -35,7 +35,7 @@ public class ItemServiceImpl implements ItemService {
     public List<Item> findAll() {
         return dao.findAllItems();
     }
-    
+
     @Transactional
     @Override
     public void update(Item item) {
@@ -44,10 +44,9 @@ public class ItemServiceImpl implements ItemService {
             entity.setName(item.getName());
             entity.setDescription(item.getDescription());
             entity.setPhoto(item.getPhoto());
-            entity.setAmount(item.getAmount());
         }
     }
-    
+
     @Transactional
     @Override
     public void save(Item item) {

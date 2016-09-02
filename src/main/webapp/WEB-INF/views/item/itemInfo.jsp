@@ -21,13 +21,6 @@
 
 <div class="">
   <div class="">
-    <label class="">Amount:</label>
-    <c:out value="${item.amount}"></c:out>
-  </div>
-</div>
-
-<div class="">
-  <div class="">
     <label class="">Photo:</label>
     <img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
   </div>  

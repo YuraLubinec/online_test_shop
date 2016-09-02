@@ -14,7 +14,6 @@
       <tr>
         <th class="col-md-2">Name</th>
         <th class="col-md-5">Description</th>
-        <th class="col-md-1">Amount</th>
         <th class="col-md-4">Photo</th>
       </tr>
     </thead>
@@ -27,9 +26,6 @@
           </td>
           <td>
             <c:out value="${item.description}"></c:out>
-          </td>
-          <td>
-            <c:out value="${item.amount}"></c:out>
           </td>
           <td>
           	<img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
