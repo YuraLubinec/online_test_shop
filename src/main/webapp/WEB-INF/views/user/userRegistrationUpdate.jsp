@@ -7,8 +7,6 @@
   <form:form action="" method="POST" modelAttribute="user" class="">
     <fieldset>
 
-      <form:hidden path="id" />
-
       <div class="">
         <c:if test="${not empty param.registrationSuccess}">
           <div class="">

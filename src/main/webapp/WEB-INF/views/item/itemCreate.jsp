@@ -10,6 +10,7 @@
       <legend></legend>
 
       <div class="">
+      
         <div class="">
           <form:label path="name" class="">Name*:</form:label>
           <div class="">
@@ -33,11 +34,13 @@
             <form:errors path="photo" class="" />
           </div>
         </div>
+        
+        <c:if test="${photo_type_error!=null}">
+		  <c:out value="${photo_type_error}"></c:out>
+	    </c:if> 
+	     
       </div>
-      <c:if test="${photo_type_error!=null}">
-		<c:out value="${photo_type_error}"></c:out>
-	  </c:if>
-      
+
       <div class="">
         <div class="">
           <div class="">

@@ -19,28 +19,25 @@ $(function() {
       },
     });
   };
-  
   $(document).on('click', '.delete', function() {
-	  if(confirm('Do you really want to delete this item?')){
-		  var tr = $(this);
-		  deleteItem($(this).prop('id'),tr);
-		
-	  }  
-	  return false;
-	  });
+    if (confirm('Do you really want to delete this item?')) {
+      deleteItem($(this));
+    }
+    return false;
+  });
 
-	  function deleteItem(input,tr) {
-	    $.ajax({
-	      type: 'DELETE',
-	      url: contextPath + '/item/delete',
-	      contentType: 'application/json',
-	      data: JSON.stringify(input),
-	      success: function(data, textStatus, jqXHR) {
-		              tr.closest('tr').remove();  
-	      },
-	      error: function(jqXHR) {
-	        alert('Smth wrong... code: ' + jqXHR.status);
-	      },
-	    });
-	  };
+  function deleteItem(butObj) {
+    $.ajax({
+      type: 'DELETE',
+      url: contextPath + '/item/delete',
+      contentType: 'application/json',
+      data: JSON.stringify(butObj.prop('id')),
+      success: function() {
+        butObj.closest('tr').remove();
+      },
+      error: function(jqXHR) {
+        alert('Smth wrong... code: ' + jqXHR.status);
+      },
+    });
+  };
 });

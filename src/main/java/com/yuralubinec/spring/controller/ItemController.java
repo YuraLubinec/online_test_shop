@@ -77,6 +77,32 @@ public class ItemController {
         return "itemInfo";
     }
 
+    @RequestMapping(value = "/item/{id}", method = RequestMethod.POST)
+    public String updateItem(@PathVariable int id, @RequestParam(required = false) MultipartFile photo,
+            @ModelAttribute Item item, BindingResult result, Model model) {
+
+        // need to fix problem with binding!!!!!!!1
+        // if(result.hasErrors()){
+        // model.addAttribute(ITEM, itemServiceImpl.findById(id));
+        // return "itemInfo";
+        // }
+
+        if (!photo.isEmpty() && !photo.getContentType().equals("image/jpeg")) {
+            model.addAttribute(ITEM, itemServiceImpl.findById(id));
+            model.addAttribute(TYPE_ERROR, "must be jpg format");
+            return "itemInfo";
+        }
+
+        try {
+            item.setPhoto(photo.getBytes());
+        } catch (IOException e) {
+            LOGGER.error("unable to get photo from request parameter", e);
+        }
+
+        itemServiceImpl.update(item);
+        return "redirect:/item/" + String.valueOf(id);
+    }
+
     @RequestMapping(value = "/item/newItem", method = RequestMethod.GET)
     public String getItemCreationPage(Model model) {
 
@@ -133,8 +159,23 @@ public class ItemController {
             throw e;
         }
     }
-    
-    @RequestMapping(value = "item/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+
+    @RequestMapping(value = "/item/deleteFromUserCart", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteItemFromUserCart(@RequestBody int id) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        try {
+            User user = userServiceImpl.findById(Integer.parseInt(authentication.getName()));
+            user.getUserItems().remove(itemServiceImpl.findById(id));
+            userServiceImpl.update(user);
+        } catch (NullPointerException e) {
+            LOGGER.error("Security problem, user is not authorised", e);
+            throw e;
+        }
+    }
+
+    @RequestMapping(value = "/item/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteItem(@RequestBody int id) {
 

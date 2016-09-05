@@ -15,6 +15,7 @@
         <th class="col-md-2">Name</th>
         <th class="col-md-5">Description</th>
         <th class="col-md-4">Photo</th>
+        <th class="col-md-1"></th>
       </tr>
     </thead>
     <tbody>
@@ -30,9 +31,18 @@
           <td>
           	<img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
           </td>
+          <td>
+            <button id="${item.id}" class="deleteFromCart">Remove</button>
+          </td>
 
         </tr>
       </c:forEach>
     </tbody>
   </table>
+  
 </div>
+
+<input id="contextPath" type="hidden" value="${pageContext.request.contextPath}" />
+
+<!-- Main page script -->
+<script src=<c:url value="/resources/js/user/user.js" />></script>
