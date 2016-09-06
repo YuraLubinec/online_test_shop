@@ -25,7 +25,7 @@ public class Item implements Serializable {
     private String name;
     private String description;
     private byte[] photo;
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
@@ -36,7 +36,7 @@ public class Item implements Serializable {
         this.id = id;
     }
 
-    @NotEmpty
+    
     @Column(name = "name", nullable = false)
     public String getName() {
         return name;
@@ -46,7 +46,7 @@ public class Item implements Serializable {
         this.name = name;
     }
 
-    @NotEmpty
+    
     @Column(name = "description", nullable = false)
     public String getDescription() {
         return description;

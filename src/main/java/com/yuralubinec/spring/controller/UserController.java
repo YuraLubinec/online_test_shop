@@ -1,7 +1,5 @@
 package com.yuralubinec.spring.controller;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.yuralubinec.spring.editor.ItemEditor;
+
 import com.yuralubinec.spring.model.User;
 import com.yuralubinec.spring.service.UserService;
 import com.yuralubinec.spring.validator.UserValidator;
@@ -29,9 +27,6 @@ public class UserController {
     private static final String USER_ITEMS = "items";
 
     @Autowired
-    ItemEditor itemEditor;
-
-    @Autowired
     UserValidator userValidator;
 
     @Autowired
@@ -39,7 +34,6 @@ public class UserController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.registerCustomEditor(List.class, "userItems", itemEditor);
         binder.addValidators(userValidator);
     }
 
@@ -54,7 +48,8 @@ public class UserController {
     public String registerUser(@Validated @ModelAttribute User user, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            return "redirect:/registration";
+            model.addAttribute(USER, user);
+            return "userRegistration";
         }
 
         userServiceImpl.save(user);

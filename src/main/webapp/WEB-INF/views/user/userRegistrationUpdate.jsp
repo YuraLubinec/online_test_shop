@@ -37,7 +37,7 @@
         <div class="">
           <label class="">Password*:</label>
           <div class="" >
-            <form:input path="password" class="" cssErrorClass="" />
+            <form:input type="password" path="password" class="" cssErrorClass="" />
             <form:errors path="password" class="" />
           </div>
         </div>

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
-
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.yuralubinec.spring.dto.ItemDTO;
 import com.yuralubinec.spring.dto.ItemFilterDTO;
 import com.yuralubinec.spring.model.Item;
 import com.yuralubinec.spring.model.User;
@@ -40,7 +41,7 @@ public class ItemController {
 
     public static final String ITEMS = "items";
 
-    private static final String ITEM = "item";
+    private static final String ITEM = "itemDTO";
 
     private static final String CURRENT_USER_NAME = "userName";
 
@@ -79,26 +80,34 @@ public class ItemController {
 
     @RequestMapping(value = "/item/{id}", method = RequestMethod.POST)
     public String updateItem(@PathVariable int id, @RequestParam(required = false) MultipartFile photo,
-            @ModelAttribute Item item, BindingResult result, Model model) {
+            @Validated @ModelAttribute ItemDTO itemDTO, BindingResult result, Model model) {
 
-        // need to fix problem with binding!!!!!!!1
-        // if(result.hasErrors()){
-        // model.addAttribute(ITEM, itemServiceImpl.findById(id));
-        // return "itemInfo";
-        // }
+        Item item = itemServiceImpl.findById(id);
+
+        if (result.hasErrors()) {
+            itemDTO.setId(id);
+            itemDTO.setName(item.getName());
+            itemDTO.setDescription(item.getDescription());
+            model.addAttribute(ITEM, itemDTO);
+            return "itemInfo";
+        }
 
         if (!photo.isEmpty() && !photo.getContentType().equals("image/jpeg")) {
-            model.addAttribute(ITEM, itemServiceImpl.findById(id));
+            model.addAttribute(ITEM, item);
             model.addAttribute(TYPE_ERROR, "must be jpg format");
             return "itemInfo";
         }
 
-        try {
-            item.setPhoto(photo.getBytes());
-        } catch (IOException e) {
-            LOGGER.error("unable to get photo from request parameter", e);
+        if (!photo.isEmpty()) {
+            try {
+                item.setPhoto(photo.getBytes());
+            } catch (IOException e) {
+                LOGGER.error("unable to get photo from request parameter", e);
+            }
         }
 
+        item.setName(itemDTO.getName());
+        item.setDescription(itemDTO.getDescription());
         itemServiceImpl.update(item);
         return "redirect:/item/" + String.valueOf(id);
     }
@@ -111,11 +120,20 @@ public class ItemController {
     }
 
     @RequestMapping(value = "/item/newItem", method = RequestMethod.POST)
-    public String createItem(@RequestParam(required = false) MultipartFile photo, @ModelAttribute Item item,
-            BindingResult result, Model model) {
+    public String createItem(@RequestParam(required = false) MultipartFile photo,
+            @Validated @ModelAttribute ItemDTO itemDTO, BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute(ITEM, itemDTO);
+            return "itemCreate";
+        }
+
+        Item item = new Item();
+        item.setName(itemDTO.getName());
+        item.setDescription(itemDTO.getDescription());
 
         if (!photo.isEmpty() && !photo.getContentType().equals("image/jpeg")) {
-            model.addAttribute(ITEM, new Item());
+            model.addAttribute(ITEM, itemDTO);
             model.addAttribute(TYPE_ERROR, "must be jpg format");
             return "itemCreate";
         }
@@ -125,7 +143,6 @@ public class ItemController {
         } catch (IOException e) {
             LOGGER.error("unable to get photo from request parameter", e);
         }
-
         itemServiceImpl.save(item);
         return "redirect:/";
     }
