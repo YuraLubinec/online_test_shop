@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="">
-  <form:form action="" method="POST" modelAttribute="itemDTO" class="" enctype="multipart/form-data">
+  <form:form action="" method="POST" modelAttribute="item" class="" enctype="multipart/form-data">
     <fieldset>
 
       <legend></legend>

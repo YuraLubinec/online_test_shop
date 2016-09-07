@@ -10,7 +10,7 @@
 
   <div class="">
     <label class="">Name:</label>
-    <c:out value="${itemDTO.name}"></c:out>
+    <c:out value="${item.name}"></c:out>
   </div>
 </div>
 
@@ -18,14 +18,14 @@
 
   <div class="">
     <label class="">Description:</label>
-    <c:out value="${itemDTO.description}"></c:out>
+    <c:out value="${item.description}"></c:out>
   </div>
 </div>
 
 <div class="">
   <div class="">
     <label class="">Photo:</label>
-    <img alt="no photo" src=<c:url value="/item/${itemDTO.id}/photo" />>
+    <img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
   </div>  
 </div>
 
@@ -36,7 +36,7 @@
 <sec:authorize access="hasAuthority('ADMIN')">
 
 <div class="">
-  <form:form action="" method="POST" modelAttribute="itemDTO" class="" enctype="multipart/form-data">
+  <form:form action="" method="POST" modelAttribute="item" class="" enctype="multipart/form-data">
     <fieldset>
 
       <div class="">
@@ -46,7 +46,7 @@
         <div class="">
           <form:label path="name" class="">Name:</form:label>
           <div class="">
-            <form:input type="text" path="name" class=""  />
+            <form:input type="text" path="name" class="" />
             <form:errors path="name" class="" />
           </div>
         </div>
@@ -54,20 +54,14 @@
         <div class="">
           <label class="">Description:</label>
           <div class="">
-            <form:input type="text" path="description" class="" />
-            <form:errors path="description" class="" />
+            <form:input type="text" path="description" class=""/>
+            <form:errors path="description" class="" /> 
           </div>
         </div>
 
 		<div class="">
-		  <div class="">
-			<label class="">Photo:</label> 
-			<img alt="no photo" src=<c:url value="/item/${itemDTO.id}/photo" />>
-		  </div>
-		</div>
-
-		<div class="">
          <label class="">Photo:</label>
+         <img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
           <div class="">
             <form:input type="file" path="photo" class="" />
             <form:errors path="photo" class="" title="" />

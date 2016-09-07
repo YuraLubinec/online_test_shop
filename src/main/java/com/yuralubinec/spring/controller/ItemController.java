@@ -17,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +34,7 @@ import com.yuralubinec.spring.model.Item;
 import com.yuralubinec.spring.model.User;
 import com.yuralubinec.spring.service.ItemService;
 import com.yuralubinec.spring.service.UserService;
+import com.yuralubinec.spring.validator.ItemDTOValidator;
 
 @Controller
 @RequestMapping(value = "/")
@@ -41,7 +44,7 @@ public class ItemController {
 
     public static final String ITEMS = "items";
 
-    private static final String ITEM = "itemDTO";
+    private static final String ITEM = "item";
 
     private static final String CURRENT_USER_NAME = "userName";
 
@@ -53,6 +56,14 @@ public class ItemController {
     @Autowired
     UserService userServiceImpl;
 
+    @Autowired
+    ItemDTOValidator itemValidator;
+    
+    @InitBinder("itemDTO")
+    public void initBinder(WebDataBinder binder){
+        binder.addValidators(itemValidator);
+    }
+    
     @RequestMapping(method = RequestMethod.GET)
     public String getAllItems(@ModelAttribute ItemFilterDTO itemFilterDTO, Model model) {
 
@@ -79,37 +90,25 @@ public class ItemController {
     }
 
     @RequestMapping(value = "/item/{id}", method = RequestMethod.POST)
-    public String updateItem(@PathVariable int id, @RequestParam(required = false) MultipartFile photo,
-            @Validated @ModelAttribute ItemDTO itemDTO, BindingResult result, Model model) {
-
+    public String updateItem(@PathVariable int id, @Validated @ModelAttribute (ITEM) ItemDTO itemDTO, BindingResult result, Model model) {
+       
+        //need to fix problem with validation
+        itemValidator.validate(itemDTO, result);
+        
         Item item = itemServiceImpl.findById(id);
 
         if (result.hasErrors()) {
+            System.out.println("wtf**?");
             itemDTO.setId(id);
-            itemDTO.setName(item.getName());
-            itemDTO.setDescription(item.getDescription());
+            itemDTO.setName(item.getName());  
+            itemDTO.setDescription(item.getDescription()); 
             model.addAttribute(ITEM, itemDTO);
             return "itemInfo";
         }
+         
 
-        if (!photo.isEmpty() && !photo.getContentType().equals("image/jpeg")) {
-            model.addAttribute(ITEM, item);
-            model.addAttribute(TYPE_ERROR, "must be jpg format");
-            return "itemInfo";
-        }
-
-        if (!photo.isEmpty()) {
-            try {
-                item.setPhoto(photo.getBytes());
-            } catch (IOException e) {
-                LOGGER.error("unable to get photo from request parameter", e);
-            }
-        }
-
-        item.setName(itemDTO.getName());
-        item.setDescription(itemDTO.getDescription());
-        itemServiceImpl.update(item);
-        return "redirect:/item/" + String.valueOf(id);
+        itemServiceImpl.updateMultipart(itemDTO);
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/item/newItem", method = RequestMethod.GET)
@@ -121,8 +120,9 @@ public class ItemController {
 
     @RequestMapping(value = "/item/newItem", method = RequestMethod.POST)
     public String createItem(@RequestParam(required = false) MultipartFile photo,
-            @Validated @ModelAttribute ItemDTO itemDTO, BindingResult result, Model model) {
+            @Validated @ModelAttribute (ITEM) ItemDTO itemDTO, BindingResult result, Model model) {
 
+        //need refactoring
         if (result.hasErrors()) {
             model.addAttribute(ITEM, itemDTO);
             return "itemCreate";

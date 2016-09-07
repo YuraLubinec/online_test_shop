@@ -2,6 +2,7 @@ package com.yuralubinec.spring.service;
 
 import java.util.List;
 
+import com.yuralubinec.spring.dto.ItemDTO;
 import com.yuralubinec.spring.model.Item;
 
 public interface ItemService {
@@ -17,5 +18,7 @@ public interface ItemService {
     public void save(Item item);
 
     public void delete(int id);
+    
+    public void updateMultipart(ItemDTO item);
 
 }

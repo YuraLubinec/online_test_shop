@@ -2,7 +2,10 @@ package com.yuralubinec.spring.dto;
 
 import java.io.Serializable;
 
+import javax.validation.Valid;
+
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ItemDTO implements Serializable {
@@ -17,6 +20,7 @@ public class ItemDTO implements Serializable {
     @NotEmpty
     private String description;
     
+    @Valid
     private MultipartFile photo;
 
     public int getId() {
