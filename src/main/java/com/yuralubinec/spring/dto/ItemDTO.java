@@ -20,7 +20,6 @@ public class ItemDTO implements Serializable {
     @NotEmpty
     private String description;
     
-    @Valid
     private MultipartFile photo;
 
     public int getId() {

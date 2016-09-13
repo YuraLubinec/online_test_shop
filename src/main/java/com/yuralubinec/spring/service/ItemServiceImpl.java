@@ -41,18 +41,20 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional
     @Override
-    public void update(Item item) {
-        Item entity = dao.findById(item.getId());
-        if (entity != null) {
-            entity.setName(item.getName());
-            entity.setDescription(item.getDescription());
-            entity.setPhoto(item.getPhoto());
-        }
-    }
+    public void save (ItemDTO itemDTO) {
 
-    @Transactional
-    @Override
-    public void save(Item item) {
+        Item item = new Item();
+        item.setName(itemDTO.getName());
+        item.setDescription(itemDTO.getDescription());
+        MultipartFile photo = itemDTO.getPhoto();
+        if (photo != null) {
+            try {
+                item.setPhoto(photo.getBytes());
+            } catch (IOException e) {
+                LOGGER.error("unable to get photo from request parameter", e);
+            }
+
+        }
         dao.save(item);
     }
 
@@ -64,7 +66,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional
     @Override
-    public void updateMultipart(ItemDTO item) {
+    public void update(ItemDTO item) {
         Item entity = dao.findById(item.getId());
 
         if (entity != null) {

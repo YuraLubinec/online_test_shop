@@ -48,8 +48,6 @@ public class ItemController {
 
     private static final String CURRENT_USER_NAME = "userName";
 
-    private static final String TYPE_ERROR = "photo_type_error";
-
     @Autowired
     ItemService itemServiceImpl;
 
@@ -58,12 +56,7 @@ public class ItemController {
 
     @Autowired
     ItemDTOValidator itemValidator;
-    
-    @InitBinder("itemDTO")
-    public void initBinder(WebDataBinder binder){
-        binder.addValidators(itemValidator);
-    }
-    
+
     @RequestMapping(method = RequestMethod.GET)
     public String getAllItems(@ModelAttribute ItemFilterDTO itemFilterDTO, Model model) {
 
@@ -87,64 +80,6 @@ public class ItemController {
 
         model.addAttribute(ITEM, itemServiceImpl.findById(id));
         return "itemInfo";
-    }
-
-    @RequestMapping(value = "/item/{id}", method = RequestMethod.POST)
-    public String updateItem(@PathVariable int id, @Validated @ModelAttribute (ITEM) ItemDTO itemDTO, BindingResult result, Model model) {
-       
-        //need to fix problem with validation
-        itemValidator.validate(itemDTO, result);
-        
-        Item item = itemServiceImpl.findById(id);
-
-        if (result.hasErrors()) {
-            System.out.println("wtf**?");
-            itemDTO.setId(id);
-            itemDTO.setName(item.getName());  
-            itemDTO.setDescription(item.getDescription()); 
-            model.addAttribute(ITEM, itemDTO);
-            return "itemInfo";
-        }
-         
-
-        itemServiceImpl.updateMultipart(itemDTO);
-        return "redirect:/";
-    }
-
-    @RequestMapping(value = "/item/newItem", method = RequestMethod.GET)
-    public String getItemCreationPage(Model model) {
-
-        model.addAttribute(ITEM, new Item());
-        return "itemCreate";
-    }
-
-    @RequestMapping(value = "/item/newItem", method = RequestMethod.POST)
-    public String createItem(@RequestParam(required = false) MultipartFile photo,
-            @Validated @ModelAttribute (ITEM) ItemDTO itemDTO, BindingResult result, Model model) {
-
-        //need refactoring
-        if (result.hasErrors()) {
-            model.addAttribute(ITEM, itemDTO);
-            return "itemCreate";
-        }
-
-        Item item = new Item();
-        item.setName(itemDTO.getName());
-        item.setDescription(itemDTO.getDescription());
-
-        if (!photo.isEmpty() && !photo.getContentType().equals("image/jpeg")) {
-            model.addAttribute(ITEM, itemDTO);
-            model.addAttribute(TYPE_ERROR, "must be jpg format");
-            return "itemCreate";
-        }
-
-        try {
-            item.setPhoto(photo.getBytes());
-        } catch (IOException e) {
-            LOGGER.error("unable to get photo from request parameter", e);
-        }
-        itemServiceImpl.save(item);
-        return "redirect:/";
     }
 
     @RequestMapping(value = "/item/{id}/photo", method = RequestMethod.GET)
@@ -192,10 +127,4 @@ public class ItemController {
         }
     }
 
-    @RequestMapping(value = "/item/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteItem(@RequestBody int id) {
-
-        itemServiceImpl.delete(id);
-    }
 }

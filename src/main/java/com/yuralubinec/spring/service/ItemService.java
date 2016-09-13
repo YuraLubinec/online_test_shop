@@ -13,12 +13,10 @@ public interface ItemService {
 
     public List<Item> findAll();
     
-    public void update(Item item);
-
-    public void save(Item item);
+    public void save(ItemDTO item);
 
     public void delete(int id);
     
-    public void updateMultipart(ItemDTO item);
+    public void update(ItemDTO item);
 
 }

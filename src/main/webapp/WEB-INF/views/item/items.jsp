@@ -18,9 +18,9 @@
       </div>
     </fieldset>
   </form:form>
-  
-  <sec:authorize access ="hasAuthority('ADMIN')">
-    <a href=<c:url value='/item/newItem'/>>New Item</a>
+
+  <sec:authorize access="hasAuthority('ADMIN')">
+    <a href=<c:url value='/admin/item/newItem' />>New Item</a>
   </sec:authorize>
 
   <table id="items">
@@ -29,10 +29,10 @@
         <th class="col-md-1">Name</th>
         <th class="col-md-3">Description</th>
         <th class="col-md-2">Photo</th>
-        <sec:authorize access = "isAuthenticated()" >
+        <sec:authorize access="isAuthenticated()">
           <th class="col-md-1">Add To Cart</th>
         </sec:authorize>
-        <sec:authorize access = "hasAuthority('ADMIN')" >
+        <sec:authorize access="hasAuthority('ADMIN')">
           <th class="col-md-1">Remove</th>
         </sec:authorize>
       </tr>
@@ -42,23 +42,28 @@
         <tr class="">
 
           <td>
-            <a href=<c:url value="/item/${item.id}" />>${item.name}</a>
+            <sec:authorize access="hasAuthority('ADMIN')">
+              <a href=<c:url value="/admin/item/${item.id}" />>${item.name}</a>
+            </sec:authorize>
+            <sec:authorize access="isAnonymous() or hasAuthority('CUSTOMER')">
+              <a href=<c:url value="/item/${item.id}" />>${item.name}</a>
+            </sec:authorize>
           </td>
           <td>
             <c:out value="${item.description}"></c:out>
           </td>
           <td>
-          	<img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
+            <img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
           </td>
           <sec:authorize access="isAuthenticated()">
-          	<td>
-          	  <button id="${item.id}" class="addToCart">Add to Cart</button>
-          	</td>
+            <td>
+              <button id="${item.id}" class="addToCart">Add to Cart</button>
+            </td>
           </sec:authorize>
-          <sec:authorize access = "hasAuthority('ADMIN')" >
-          	<td>
-          	  <button id="${item.id}" class="delete">Remove Item</button>
-          	</td>
+          <sec:authorize access="hasAuthority('ADMIN')">
+            <td>
+              <button id="${item.id}" class="delete">Remove Item</button>
+            </td>
           </sec:authorize>
         </tr>
       </c:forEach>

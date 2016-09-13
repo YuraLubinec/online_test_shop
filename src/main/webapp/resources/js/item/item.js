@@ -29,7 +29,7 @@ $(function() {
   function deleteItem(butObj) {
     $.ajax({
       type: 'DELETE',
-      url: contextPath + '/item/delete',
+      url: contextPath + '/admin/item/delete',
       contentType: 'application/json',
       data: JSON.stringify(butObj.prop('id')),
       success: function() {

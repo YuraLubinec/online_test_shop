@@ -35,7 +35,8 @@
         <value>/WEB-INF/tiles/layouts.xml</value>
         <value>/WEB-INF/tiles/item.xml</value>  
         <value>/WEB-INF/tiles/login.xml</value>
-        <value>/WEB-INF/tiles/user.xml</value>          
+        <value>/WEB-INF/tiles/user.xml</value>
+        <value>/WEB-INF/tiles/admin.xml</value>          
       </list>
     </property>
   </bean>

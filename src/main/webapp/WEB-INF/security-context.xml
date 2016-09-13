@@ -15,7 +15,7 @@
     <sec:intercept-url pattern="/registration" access="permitAll" />
     <sec:intercept-url pattern="/user" access="isAuthenticated()" />
     <sec:intercept-url pattern="/user/cart" access="isAuthenticated()" />
-    <sec:intercept-url pattern="/item/newItem" access="hasAuthority('ADMIN')" />
+    <sec:intercept-url pattern="/admin/**" access="hasAuthority('ADMIN')" />
     <sec:intercept-url pattern="/item/**" access="permitAll" />
 
     <sec:form-login 

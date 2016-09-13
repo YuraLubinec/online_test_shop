@@ -13,9 +13,4 @@
     <put-attribute name="body" value="/WEB-INF/views/item/itemInfo.jsp" />
   </definition>
   
-  <definition name="itemCreate" extends="DefaultTemplate">
-    <put-attribute name="title" value="Item info" />
-    <put-attribute name="body" value="/WEB-INF/views/item/itemCreate.jsp" />
-  </definition>  
-  
 </tiles-definitions>
