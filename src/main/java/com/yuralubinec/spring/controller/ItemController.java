@@ -97,7 +97,7 @@ public class ItemController {
 
     @RequestMapping(value = "/item/addToUserCart", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
             "text/html; charset=UTF-8" })
-    public @ResponseBody String addItemToCart(@RequestBody int id) {
+    public @ResponseBody String addItemToUserCart(@RequestBody int id) {
 
         User user = null;
 
@@ -105,7 +105,7 @@ public class ItemController {
             user = userServiceImpl
                     .findById(Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName()));
         } catch (NullPointerException e) {
-            LOGGER.error("User is not authorised", e);
+            LOGGER.error("Security problem, user is not authorised", e);
             throw e;
         }
 

@@ -6,6 +6,8 @@
 <div class="">
   <form:form action="" method="POST" modelAttribute="user" class="">
     <fieldset>
+    
+      <form:hidden path="id"/>
 
       <div class="">
         <c:if test="${not empty param.registrationSuccess}">
@@ -45,14 +47,16 @@
         <div class="">
           <label class="">First name*:</label>
           <div class="">
-            <form:input type="text" path="name" class="" />
+            <form:input type="text" path="name" class="" cssErrorClass=""/>
+            <form:errors path="name" class="" />
           </div>
         </div>
 
         <div class="">
           <label class="">Last name*:</label>
           <div class="">
-            <form:input type="text" path="surname" class="" />
+            <form:input type="text" path="surname" class="" cssErrorClass=""/>
+            <form:errors path="surname" class="" />
           </div>
         </div>
       </div>

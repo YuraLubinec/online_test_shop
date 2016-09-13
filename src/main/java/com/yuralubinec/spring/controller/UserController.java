@@ -41,7 +41,7 @@ public class UserController {
     public String getUserRegistrationPage(Model model) {
 
         model.addAttribute(USER, new User());
-        return "userRegistration";
+        return "userRegistrationUpdate";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -49,7 +49,7 @@ public class UserController {
 
         if (result.hasErrors()) {
             model.addAttribute(USER, user);
-            return "userRegistration";
+            return "userRegistrationUpdate";
         }
 
         userServiceImpl.save(user);
@@ -67,7 +67,13 @@ public class UserController {
     public String editAccount(@Validated @ModelAttribute User user, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            return "redirect:/user";
+            User us = userServiceImpl.findById(user.getId());
+            user.setLogin(us.getLogin());
+            user.setName(us.getName());
+            user.setPassword(us.getPassword());
+            user.setSurname(us.getSurname());
+            model.addAttribute(USER, user);
+            return "userRegistrationUpdate";
         }
         userServiceImpl.update(user);
         return "redirect:/user?updateSuccess=true";

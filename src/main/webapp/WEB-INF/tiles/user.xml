@@ -3,7 +3,7 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 <tiles-definitions>
 
-  <definition name="userRegistration" extends="DefaultTemplate">
+  <definition name="userRegistrationUpdate" extends="DefaultTemplate">
     <put-attribute name="title" value="Registration" />
     <put-attribute name="body" value="/WEB-INF/views/user/userRegistrationUpdate.jsp" />
   </definition>
