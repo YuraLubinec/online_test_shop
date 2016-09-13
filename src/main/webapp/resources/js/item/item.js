@@ -11,8 +11,8 @@ $(function() {
       url: contextPath + '/item/addToUserCart',
       contentType: 'application/json',
       data: JSON.stringify(input),
-      success: function() {
-        alert('Item was added to your cart')
+      success: function(data) {
+        alert(data)
       },
       error: function(jqXHR) {
         alert('Smth wrong... code: ' + jqXHR.status);
