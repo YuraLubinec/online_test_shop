@@ -27,8 +27,9 @@
     <thead>
       <tr>
         <th class="col-md-1">Name</th>
-        <th class="col-md-3">Description</th>
-        <th class="col-md-2">Photo</th>
+        <th class="col-md-2">Description</th>
+        <th class="col-md-1">Price</th>
+        <th class="col-md-2">Photo</th>  
         <sec:authorize access="isAuthenticated()">
           <th class="col-md-1">Add To Cart</th>
         </sec:authorize>
@@ -51,6 +52,9 @@
           </td>
           <td>
             <c:out value="${item.description}"></c:out>
+          </td>
+          <td>
+            <c:out value="${item.price}"></c:out>
           </td>
           <td>
             <img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>

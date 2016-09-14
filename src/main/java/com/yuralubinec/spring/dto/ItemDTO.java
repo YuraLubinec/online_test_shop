@@ -2,26 +2,22 @@ package com.yuralubinec.spring.dto;
 
 import java.io.Serializable;
 
-import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ItemDTO implements Serializable {
 
     private static final long serialVersionUID = -6448933390269977215L;
-
+   
     private int id;
-    
-    @NotEmpty
     private String name;
-    
-    @NotEmpty
     private String description;
-    
     private MultipartFile photo;
-
+    private Integer price;
     public int getId() {
         return id;
     }
@@ -30,6 +26,8 @@ public class ItemDTO implements Serializable {
         this.id = id;
     }
 
+    @NotEmpty
+    @Size(max = 128)
     public String getName() {
         return name;
     }
@@ -38,6 +36,8 @@ public class ItemDTO implements Serializable {
         this.name = name;
     }
 
+    @NotEmpty
+    @Size(max = 256)
     public String getDescription() {
         return description;
     }
@@ -54,8 +54,14 @@ public class ItemDTO implements Serializable {
         this.photo = photo;
     }
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
+    @NotNull
+    @Min(0)
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
     }
 
 }

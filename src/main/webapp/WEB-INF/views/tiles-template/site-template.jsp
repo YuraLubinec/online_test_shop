@@ -24,6 +24,7 @@
 
   <!-- Font Awesome -->
   <link href="<c:url value = "/resources/store-components/css/font-awesome.min.css" />" rel="stylesheet">
+  <link href="<c:url value = "/resources/store-components/css/font-awesome.css" />" rel="stylesheet">
 
   <!-- Custom CSS -->
   <link href="<c:url value = "/resources/store-components/css/owl.carousel.css" />" rel="stylesheet">

@@ -13,10 +13,16 @@
 </div>
 
 <div class="">
-
   <div class="">
     <label class="">Description:</label>
     <c:out value="${item.description}"></c:out>
+  </div>
+</div>
+
+<div class="">
+  <div class="">
+    <label class="">Price:</label>
+    <c:out value="${item.price}"></c:out>
   </div>
 </div>
 

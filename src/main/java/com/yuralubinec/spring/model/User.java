@@ -25,34 +25,16 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = -8449816156899969474L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @NotEmpty
-    @Column(name = "login", length = 75, unique = true, nullable = false)
     private String login;
-
-    @NotEmpty
-    @Column(name = "password", length = 32, nullable = false)
     private String password;
-
-    @NotEmpty
-    @Column(name = "name", length = 75, nullable = false)
     private String name;
-
-    @NotEmpty
-    @Column(name = "surname", length = 75, nullable = false)
     private String surname;
-
-    @Column(name = "user_role", length = 15, nullable = false)
     private String userRole = UserRole.CUSTOMER.getUserRole();
-
-    @ManyToMany
-    @JoinTable(name = "user_item", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
-            @JoinColumn(name = "item_id") })
     private List<Item> userItems = new ArrayList<>();
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -61,6 +43,8 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    @NotEmpty
+    @Column(name = "login", length = 75, unique = true, nullable = false)
     public String getLogin() {
         return login;
     }
@@ -69,6 +53,8 @@ public class User implements Serializable {
         this.login = login;
     }
 
+    @NotEmpty
+    @Column(name = "password", length = 32, nullable = false)
     public String getPassword() {
         return password;
     }
@@ -77,6 +63,8 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    @NotEmpty
+    @Column(name = "name", length = 75, nullable = false)
     public String getName() {
         return name;
     }
@@ -85,6 +73,8 @@ public class User implements Serializable {
         this.name = name;
     }
 
+    @NotEmpty
+    @Column(name = "surname", length = 75, nullable = false)
     public String getSurname() {
         return surname;
     }
@@ -93,6 +83,7 @@ public class User implements Serializable {
         this.surname = surname;
     }
 
+    @Column(name = "user_role", length = 15, nullable = false)
     public String getUser_role() {
         return userRole;
     }
@@ -101,6 +92,9 @@ public class User implements Serializable {
         this.userRole = user_role;
     }
 
+    @ManyToMany
+    @JoinTable(name = "user_item", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "item_id") })
     public List<Item> getUserItems() {
         return userItems;
     }

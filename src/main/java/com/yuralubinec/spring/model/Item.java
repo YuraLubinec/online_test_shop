@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "item")
@@ -25,6 +24,7 @@ public class Item implements Serializable {
     private String name;
     private String description;
     private byte[] photo;
+    private int price;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,6 +64,15 @@ public class Item implements Serializable {
 
     public void setPhoto(byte[] photo) {
         this.photo = photo;
+    }
+    
+    @Column(name = "price")
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Override

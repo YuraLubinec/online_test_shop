@@ -46,6 +46,7 @@ public class ItemServiceImpl implements ItemService {
         Item item = new Item();
         item.setName(itemDTO.getName());
         item.setDescription(itemDTO.getDescription());
+        item.setPrice(itemDTO.getPrice());
         MultipartFile photo = itemDTO.getPhoto();
         if (photo != null) {
             try {
@@ -72,6 +73,7 @@ public class ItemServiceImpl implements ItemService {
         if (entity != null) {
             entity.setName(item.getName());
             entity.setDescription(item.getDescription());
+            entity.setPrice(item.getPrice());
             MultipartFile photo = item.getPhoto();
             if (!photo.isEmpty()) {
                 try {

@@ -22,8 +22,16 @@
         <div class="">
           <label class="">Description*:</label>
           <div class="" >
-            <form:input path="description" class="" cssErrorClass="" />
+            <form:input type="text" path="description" class="" cssErrorClass="" />
             <form:errors path="description" class="" />
+          </div>
+        </div>
+        
+        <div class="">
+          <label class="">Price*:</label>
+          <div class="" >
+            <form:input type="number" path="price" class="" cssErrorClass="" />
+            <form:errors path="price" class="" />
           </div>
         </div>
 

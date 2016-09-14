@@ -13,7 +13,8 @@
     <thead>
       <tr>
         <th class="col-md-2">Name</th>
-        <th class="col-md-5">Description</th>
+        <th class="col-md-4">Description</th>
+        <th class="col-md-1">Price</th>
         <th class="col-md-4">Photo</th>
         <th class="col-md-1"></th>
       </tr>
@@ -27,6 +28,9 @@
           </td>
           <td>
             <c:out value="${item.description}"></c:out>
+          </td>
+          <td>
+            <c:out value="${item.price}"></c:out>
           </td>
           <td>
           	<img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>

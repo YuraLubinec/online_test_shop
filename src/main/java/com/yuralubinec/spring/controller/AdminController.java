@@ -54,6 +54,7 @@ public class AdminController {
         if (result.hasErrors()) {
             itemDTO.setName(item.getName());
             itemDTO.setDescription(item.getDescription());
+            itemDTO.setPrice(item.getPrice());
             model.addAttribute(ITEM, itemDTO);
             return "itemCreateUpdate";
         }
