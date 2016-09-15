@@ -21,16 +21,14 @@
 
   <!-- Bootstrap -->
   <link href="<c:url value = "/resources/store-components/css/bootstrap.min.css" />" rel="stylesheet">
+  <link href="<c:url value = "/resources/store-components/css/bootstrap.css" />" rel="stylesheet">
 
   <!-- Font Awesome -->
   <link href="<c:url value = "/resources/store-components/css/font-awesome.min.css" />" rel="stylesheet">
   <link href="<c:url value = "/resources/store-components/css/font-awesome.css" />" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link href="<c:url value = "/resources/store-components/css/owl.carousel.css" />" rel="stylesheet">
-  <link href="<c:url value = "/resources/store-components/css/style.css" />" rel="stylesheet">
-  <link href="<c:url value = "/resources/store-components/css/responsive.css" />" rel="stylesheet">
-
+  <link href="<c:url value = "/resources/store-components/css/shop-homepage.css" />" rel="stylesheet">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,17 +39,10 @@
 
   <!-- jQuery -->
   <script src="<c:url value = "/resources/store-components/js/jquery.min.js" />"></script>
+  <script src="<c:url value = "/resources/store-components/js/jquery.js" />"></script>
 
   <!-- Bootstrap JS -->
   <script src="<c:url value = "/resources/store-components/js/bootstrap.min.js" />"></script>
-
-  <!-- jQuery sticky menu -->
-  <script src="<c:url value = "/resources/store-components/js/owl.carousel.min.js" />"></script>
-  <script src="<c:url value = "/resources/store-components/js/jquery.sticky.js" />"></script>
-
-  <!-- jQuery easing -->
-  <script src="<c:url value = "/resources/store-components/js/jquery.easing.1.3.min.js" />"></script>
-
 
 </head>
 
@@ -59,7 +50,7 @@
   
   <tiles:insertAttribute name="menu" />
 
-  <div id="page-wrapper">
+  <div>
     <tiles:insertAttribute name="body" />
   </div>
 

@@ -5,7 +5,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <div class="">
-
   <div class="">
     <label class="">Name:</label>
     <c:out value="${item.name}"></c:out>
@@ -33,5 +32,13 @@
   </div>  
 </div>
 
-<a href=<c:url value="/" /> class="">Cencel</a>
+<sec:authorize access="isAuthenticated()"> 
+  <button id="${item.id}" class="addToCart btn btn-primary">Add to Cart</button>               
+</sec:authorize>
 
+<a href=<c:url value="/" /> class="btn btn-default">Back</a>
+
+<input id="contextPath" type="hidden" value="${pageContext.request.contextPath}" />
+
+<!-- Main page script -->
+<script src=<c:url value="/resources/js/item/item.js" />></script>

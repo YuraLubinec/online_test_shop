@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -42,7 +41,9 @@ public class ItemController {
 
     private static final String ITEM = "item";
 
-    private static final String CURRENT_USER_NAME = "userName";
+    private static final String ITEMS_FOR_CAROUSEL = "itemsForCarousel";
+
+    private static final String ACTIVE_ITEM = "activeItemId";
 
     @Autowired
     ItemService itemServiceImpl;
@@ -59,17 +60,23 @@ public class ItemController {
     @RequestMapping(method = RequestMethod.GET)
     public String getAllItems(@ModelAttribute ItemFilterDTO itemFilterDTO, Model model) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            model.addAttribute(CURRENT_USER_NAME,
-                    userServiceImpl.findById(Integer.parseInt(authentication.getName())).getName());
+        List<Item> itemList = itemServiceImpl.findAll();
+
+        // may return null value
+        int size = itemList.size();
+
+        model.addAttribute(ACTIVE_ITEM, itemList.get((size) - 1).getId());
+        if (size > 3) {
+            model.addAttribute(ITEMS_FOR_CAROUSEL, itemList.subList(size - 3, size - 1));
+        } else {
+            model.addAttribute(ITEMS_FOR_CAROUSEL, itemList.subList(0, size - 1));
         }
 
         String filterName = itemFilterDTO.getItemNameFilter();
         if (filterName != null && filterName.length() != 0) {
             model.addAttribute(ITEMS, itemServiceImpl.findWithFilter(filterName));
         } else {
-            model.addAttribute(ITEMS, itemServiceImpl.findAll());
+            model.addAttribute(ITEMS, itemList);
         }
         return "items";
     }
