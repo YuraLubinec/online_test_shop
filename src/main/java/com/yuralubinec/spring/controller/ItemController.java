@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.yuralubinec.spring.dto.ItemFilterDTO;
 import com.yuralubinec.spring.model.Item;
 import com.yuralubinec.spring.model.User;
+import com.yuralubinec.spring.service.BannerService;
 import com.yuralubinec.spring.service.ItemService;
 import com.yuralubinec.spring.service.UserService;
 import com.yuralubinec.spring.validator.ItemDTOValidator;
@@ -50,6 +51,9 @@ public class ItemController {
 
     @Autowired
     UserService userServiceImpl;
+    
+    @Autowired
+    BannerService bannerServiceImpl;
 
     @Autowired
     ItemDTOValidator itemValidator;
@@ -107,7 +111,7 @@ public class ItemController {
     public @ResponseBody String addItemToUserCart(@RequestBody int id) {
 
         User user = null;
-
+        
         try {
             user = userServiceImpl
                     .findById(Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName()));
@@ -140,6 +144,20 @@ public class ItemController {
         } catch (NullPointerException e) {
             LOGGER.error("Security problem, user is not authorised", e);
             throw e;
+        }
+    }
+    
+    @RequestMapping(value = "/banner/{id}/photo", method = RequestMethod.GET)
+    public void getBannerPhoto(HttpServletResponse response, @PathVariable int id) {
+
+        byte[] data = bannerServiceImpl.getBunnerById(id).getPhoto();
+        if (data != null) {
+            response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+            response.setContentLength(data.length);
+            try (ServletOutputStream outputStream = response.getOutputStream()) {
+                FileCopyUtils.copy(data, outputStream);
+            } catch (IOException e) {
+            }
         }
     }
 

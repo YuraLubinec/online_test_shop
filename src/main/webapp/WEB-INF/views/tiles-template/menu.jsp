@@ -18,7 +18,7 @@
           <li>
             <a href=<c:url value="/user/cart" />>Cart</a>
           </li>
-          <li>
+          <li class="pull-right">
             <a href=<c:url value="/logout" />>Logout</a>
           </li>
         </sec:authorize>
@@ -27,10 +27,21 @@
           <li>
             <a href=<c:url value="/registration" />>Registration</a>
           </li>
-          <li>
+          <li class="pull-right">
             <a href=<c:url value="/login" />>Login</a>
           </li>
         </sec:authorize>
+        
+        <sec:authorize access="hasAuthority('ADMIN')">
+        	<li class="dropdown">
+        	<a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin Tools</a>
+    		  <ul class="dropdown-menu">
+      		    <li><a href=<c:url value="/admin/banners" />>Available banners</a></li>
+      			<li><a href=<c:url value="/admin/banners/banner/newBanner" />>Add new Banner</a></li>
+      			<li><a href=<c:url value="/admin/item/newItem" />>Add new Item</a></li>
+    		  </ul>
+  		    </li>
+		</sec:authorize>
 
       </ul>
     </div>

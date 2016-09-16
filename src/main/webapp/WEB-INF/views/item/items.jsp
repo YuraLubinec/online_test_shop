@@ -6,20 +6,6 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-
-      <div>
-      
-        <form:form modelAttribute="itemFilterDTO" method="GET">
-          <fieldset>
-            <h4>Filters</h4>
-            <div class="">
-              <div class="">
-                <form:input type="text" path="itemNameFilter" class="" placeholder="Item name" />
-              </div>
-            </div>
-          </fieldset>
-        </form:form>
-
         <div class="row carousel-holder">
           <div class="col-md-12">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -48,12 +34,22 @@
           </div>
         </div>
 
+ <form:form modelAttribute="itemFilterDTO" method="GET">
+          <fieldset>
+            <div class="">
+              <div class="pull-right">
+                <form:input type="text" path="itemNameFilter" class="" placeholder="Search item" />
+              </div>
+            </div>
+          </fieldset>
+        </form:form>
+
         <sec:authorize access="hasAuthority('ADMIN')">
           <a href=<c:url value='/admin/item/newItem' />>New Item</a>
         </sec:authorize>
         <div class="row">
           <c:forEach items="${items}" var="item">
-            <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="col-sm-3 col-lg-3 col-md-3">
               <div class="thumbnail">
                 <img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
                 <div class="caption"> 
@@ -82,61 +78,7 @@
         </div>
       </div>
     </div>
-  </div>
 </div>
-
-<!--         <table id="items"> -->
-<!--           <thead> -->
-<!--             <tr> -->
-<!--               <th class="col-md-1">Name</th> -->
-<!--               <th class="col-md-2">Description</th> -->
-<!--               <th class="col-md-1">Price</th> -->
-<!--               <th class="col-md-2">Photo</th> -->
-<%--               <sec:authorize access="isAuthenticated()"> --%>
-<!--                 <th class="col-md-1">Add To Cart</th> -->
-<%--               </sec:authorize> --%>
-<%--               <sec:authorize access="hasAuthority('ADMIN')"> --%>
-<!--                 <th class="col-md-1">Remove</th> -->
-<%--               </sec:authorize> --%>
-<!--             </tr> -->
-<!--           </thead> -->
-<!--           <tbody> -->
-<%--             <c:forEach items="${items}" var="item"> --%>
-<!--               <tr class=""> -->
-
-<!--                 <td> -->
-<%--                   <sec:authorize access="hasAuthority('ADMIN')"> --%>
-<%--                     <a href=<c:url value="/admin/item/${item.id}" />>${item.name}</a> --%>
-<%--                   </sec:authorize> --%>
-<%--                   <sec:authorize access="isAnonymous() or hasAuthority('CUSTOMER')"> --%>
-<%--                     <a href=<c:url value="/item/${item.id}" />>${item.name}</a> --%>
-<%--                   </sec:authorize> --%>
-<!--                 </td> -->
-<!--                 <td> -->
-<%--                   <c:out value="${item.description}"/> --%>
-<!--                 </td> -->
-<!--                 <td> -->
-<%--                   <c:out value="${item.price}"/> --%>
-<!--                 </td> -->
-<!--                 <td> -->
-<%--                   <img alt="no photo" src=<c:url value="/item/${item.id}/photo" />> --%>
-<!--                 </td> -->
-<%--                 <sec:authorize access="isAuthenticated()"> --%>
-<!--                   <td> -->
-<%--                     <button id="${item.id}" class="addToCart">Add to Cart</button> --%>
-<!--                   </td> -->
-<%--                 </sec:authorize> --%>
-<%--                 <sec:authorize access="hasAuthority('ADMIN')"> --%>
-<!--                   <td> -->
-<%--                     <button id="${item.id}" class="delete">Delete</button> --%>
-<!--                   </td> -->
-<%--                 </sec:authorize> --%>
-<!--               </tr> -->
-<%--             </c:forEach> --%>
-<!--           </tbody> -->
-<!--         </table> -->
-        
-
 
 <input id="contextPath" type="hidden" value="${pageContext.request.contextPath}" />
 

@@ -24,18 +24,21 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     @Override
     public Item findById(int id) {
+        
         return dao.findById(id);
     }
 
     @Transactional
     @Override
     public List<Item> findWithFilter(String name) {
+        
         return dao.findItemsWithFilter(name);
     }
 
     @Transactional
     @Override
     public List<Item> findAll() {
+       
         return dao.findAllItems();
     }
 
@@ -62,14 +65,15 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     @Override
     public void delete(int id) {
+        
         dao.delete(id);
     }
 
     @Transactional
     @Override
     public void update(ItemDTO item) {
+       
         Item entity = dao.findById(item.getId());
-
         if (entity != null) {
             entity.setName(item.getName());
             entity.setDescription(item.getDescription());
@@ -84,5 +88,4 @@ public class ItemServiceImpl implements ItemService {
             }
         }
     }
-
 }

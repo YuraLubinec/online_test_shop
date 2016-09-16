@@ -33,7 +33,7 @@ $(function() {
       contentType: 'application/json',
       data: JSON.stringify(butObj.prop('id')),
       success: function() {
-        butObj.closest('tr').remove();
+        butObj.closest('div.thumbnail').remove();
       },
       error: function(jqXHR) {
         alert('Smth wrong... code: ' + jqXHR.status);

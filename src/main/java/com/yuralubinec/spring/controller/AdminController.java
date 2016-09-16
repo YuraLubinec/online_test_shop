@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.yuralubinec.spring.dto.BannerDTO;
 import com.yuralubinec.spring.dto.ItemDTO;
 import com.yuralubinec.spring.model.Item;
+import com.yuralubinec.spring.service.BannerService;
 import com.yuralubinec.spring.service.ItemService;
+import com.yuralubinec.spring.validator.BannerDTOValidator;
 import com.yuralubinec.spring.validator.ItemDTOValidator;
 
 @Controller
@@ -28,29 +33,49 @@ public class AdminController {
 
     private static final String ITEM = "itemDTO";
 
+    private static final String BANNER_LIST = "banners";
+
+    private static final String BANNER_DTO = "bannerDTO";
+
     @Autowired
     ItemService itemServiceImpl;
 
     @Autowired
+    BannerService bannerServiceImpl;
+
+    @Autowired
     ItemDTOValidator itemValidator;
-    
+
+    @Autowired
+    BannerDTOValidator bannerValidator;
+
+    @InitBinder(BANNER_DTO)
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(bannerValidator);
+    }
+
+    @InitBinder(ITEM)
+    public void initItemBinder(WebDataBinder binder) {
+        binder.addValidators(itemValidator);
+    }
+
     @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
     public String getItemPage(@PathVariable int id, Model model) {
 
-        model.addAttribute(ITEM, itemServiceImpl.findById(id));
+        Item item = itemServiceImpl.findById(id);
+        ItemDTO itemDTO = new ItemDTO();
+        itemDTO.setName(item.getName());
+        itemDTO.setDescription(item.getDescription());
+        itemDTO.setPrice(item.getPrice());
+        model.addAttribute(ITEM, itemDTO);
         return "itemCreateUpdate";
-
     }
 
     @RequestMapping(value = "/item/{id}", method = RequestMethod.POST)
-    public String updateItem(@PathVariable int id, @Validated @ModelAttribute ItemDTO itemDTO,
-            BindingResult result, Model model) {
-
-//      need to fix problem with validation
-        itemValidator.validate(itemDTO, result);
+    public String updateItem(@PathVariable int id, @Validated @ModelAttribute ItemDTO itemDTO, BindingResult result,
+            Model model) {
 
         Item item = itemServiceImpl.findById(id);
-
         if (result.hasErrors()) {
             itemDTO.setName(item.getName());
             itemDTO.setDescription(item.getDescription());
@@ -58,7 +83,6 @@ public class AdminController {
             model.addAttribute(ITEM, itemDTO);
             return "itemCreateUpdate";
         }
-
         itemServiceImpl.update(itemDTO);
         return "redirect:/";
     }
@@ -66,16 +90,13 @@ public class AdminController {
     @RequestMapping(value = "/item/newItem", method = RequestMethod.GET)
     public String getItemCreationPage(Model model) {
 
-        model.addAttribute(ITEM, new Item());
+        model.addAttribute(ITEM, new ItemDTO());
 
         return "itemCreateUpdate";
     }
 
     @RequestMapping(value = "/item/newItem", method = RequestMethod.POST)
     public String createItem(@Validated @ModelAttribute ItemDTO itemDTO, BindingResult result, Model model) {
-
-//        need to fix problem with validation
-        itemValidator.validate(itemDTO, result);
 
         if (result.hasErrors()) {
             model.addAttribute(ITEM, itemDTO);
@@ -93,4 +114,35 @@ public class AdminController {
         itemServiceImpl.delete(id);
     }
 
+    @RequestMapping(value = "/banners", method = RequestMethod.GET)
+    public String getBannersPage(Model model) {
+ 
+        model.addAttribute(BANNER_LIST, bannerServiceImpl.getAllBanners());
+        return "banners";
+    }
+    
+    @RequestMapping(value = "/banner/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBanner(@RequestBody int id) {
+
+        bannerServiceImpl.deleteBanner(id);
+    }
+    
+    @RequestMapping(value = "/banners/banner/newBanner", method = RequestMethod.GET)
+    public String getBannerCreationPage(Model model) {
+ 
+        model.addAttribute(BANNER_DTO, new BannerDTO());
+        return "bannerCreateUpdate";
+    }
+
+    @RequestMapping(value = "/banners/banner/newBanner", method = RequestMethod.POST)
+    public String saveBanner(@Validated @ModelAttribute BannerDTO bannerDTO, BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute(BANNER_DTO, bannerDTO);
+            return "bannerCreateUpdate";
+        }
+        bannerServiceImpl.save(bannerDTO);
+        return "redirect:/admin/banners";
+    }
 }

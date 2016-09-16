@@ -5,11 +5,11 @@
  */
 
 body {
-    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    padding-top: 55px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
 .slide-image {
-    width: 50%;
+    width: 60%;
 }
 
 .carousel-holder {
@@ -22,7 +22,8 @@ body {
 }
 
 .caption {
-    height: 130 px;
+	
+    height: 130 px !important;
     overflow: hidden;
 }
 
