@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.yuralubinec.spring.dto.ItemFilterDTO;
+import com.yuralubinec.spring.model.Banner;
 import com.yuralubinec.spring.model.Item;
 import com.yuralubinec.spring.model.User;
 import com.yuralubinec.spring.service.BannerService;
@@ -42,16 +43,16 @@ public class ItemController {
 
     private static final String ITEM = "item";
 
-    private static final String ITEMS_FOR_CAROUSEL = "itemsForCarousel";
+    private static final String BANNERS_FOR_CAROUSEL = "banners";
 
-    private static final String ACTIVE_ITEM = "activeItemId";
+    private static final String ACTIVE_BANNER = "activeBannerId";
 
     @Autowired
     ItemService itemServiceImpl;
 
     @Autowired
     UserService userServiceImpl;
-    
+
     @Autowired
     BannerService bannerServiceImpl;
 
@@ -64,19 +65,20 @@ public class ItemController {
     @RequestMapping(method = RequestMethod.GET)
     public String getAllItems(@ModelAttribute ItemFilterDTO itemFilterDTO, Model model) {
 
+        String filterName = itemFilterDTO.getItemNameFilter();
+        List<Banner> banners = bannerServiceImpl.getAllBanners();
         List<Item> itemList = itemServiceImpl.findAll();
+        int size = banners.size();
 
-        // may return null value
-        int size = itemList.size();
+        if (size != 0 && size <= 3) {
 
-        model.addAttribute(ACTIVE_ITEM, itemList.get((size) - 1).getId());
-        if (size > 3) {
-            model.addAttribute(ITEMS_FOR_CAROUSEL, itemList.subList(size - 3, size - 1));
-        } else {
-            model.addAttribute(ITEMS_FOR_CAROUSEL, itemList.subList(0, size - 1));
+            model.addAttribute(ACTIVE_BANNER, banners.get(size - 1).getId());
+            model.addAttribute(BANNERS_FOR_CAROUSEL, banners.subList(0, size - 1));
+        } else if (size > 3) {
+            model.addAttribute(ACTIVE_BANNER, banners.get(size - 1).getId());
+            model.addAttribute(BANNERS_FOR_CAROUSEL, banners.subList(size - 3, size - 1));
         }
 
-        String filterName = itemFilterDTO.getItemNameFilter();
         if (filterName != null && filterName.length() != 0) {
             model.addAttribute(ITEMS, itemServiceImpl.findWithFilter(filterName));
         } else {
@@ -111,7 +113,7 @@ public class ItemController {
     public @ResponseBody String addItemToUserCart(@RequestBody int id) {
 
         User user = null;
-        
+
         try {
             user = userServiceImpl
                     .findById(Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName()));
@@ -146,7 +148,7 @@ public class ItemController {
             throw e;
         }
     }
-    
+
     @RequestMapping(value = "/banner/{id}/photo", method = RequestMethod.GET)
     public void getBannerPhoto(HttpServletResponse response, @PathVariable int id) {
 

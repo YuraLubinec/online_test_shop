@@ -16,11 +16,11 @@
               </ol>
               <div class="carousel-inner">
                 <div class="item active">
-                  <img class="slide-image" src=<c:url value="/item/${activeItemId}/photo" /> alt="no photo">
+                  <img class="slide-image" src=<c:url value="/banner/${activeBannerId}/photo" /> alt="no photo">
                 </div>
-                <c:forEach items="${itemsForCarousel}" var="item">
+                <c:forEach items="${banners}" var="banner">
                   <div class="item">
-                    <img class="slide-image" src=<c:url value="/item/${item.id}/photo" /> alt="no photo">
+                    <img class="slide-image" src=<c:url value="/banner/${banner.id}/photo" /> alt="no photo">
                   </div>
                 </c:forEach>
               </div>
@@ -44,9 +44,6 @@
           </fieldset>
         </form:form>
 
-        <sec:authorize access="hasAuthority('ADMIN')">
-          <a href=<c:url value='/admin/item/newItem' />>New Item</a>
-        </sec:authorize>
         <div class="row">
           <c:forEach items="${items}" var="item">
             <div class="col-sm-3 col-lg-3 col-md-3">

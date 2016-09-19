@@ -60,7 +60,7 @@ public class UserController {
     public String getUserInfoPage(Model model) {
         model.addAttribute(USER, userServiceImpl
                 .findById(Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName())));
-        return "user";
+        return "userRegistrationUpdate";
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)

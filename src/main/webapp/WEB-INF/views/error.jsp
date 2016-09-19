@@ -25,7 +25,7 @@
       </c:if>
       <img src=<c:url value="/resources/travolta.gif" /> title="error" />
       <p>
-        <span>Ohh.....</span>You Requested the page that is no longer There.
+        <span>Ohh.....</span>Something going wrong!
       </p>
       <a href="#" onclick="window.history.back();">Back</a>
       <a href=<c:url value="/" />>Home</a>
