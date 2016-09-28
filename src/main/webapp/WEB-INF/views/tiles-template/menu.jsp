@@ -6,44 +6,70 @@
   <div class="container">
     <div class="" id="">
       <ul class="nav navbar-nav">
-
         <li class="home-navbar">
-          <a class="home-navbar" href=<c:url value="/" />>Home</a>
+          <a class="home-navbar" href=<c:url value="/" />>
+          <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home
+          </a>
         </li>
 
         <sec:authorize access="isAuthenticated()">
           <li>
-            <a href=<c:url value="/user" />>Profile Info</a>
+            <a href=<c:url value="/user" />>
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile Info
+            </a>
           </li>
           <li>
-            <a href=<c:url value="/user/cart" />>Cart</a>
-          </li>
-          <li class="pull-right">
-            <a href=<c:url value="/logout" />>Logout</a>
+            <a href=<c:url value="/user/cart" />>
+            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> User Cart
+            </a>
           </li>
         </sec:authorize>
 
-        <sec:authorize access="isAnonymous()">
-          <li>
-            <a href=<c:url value="/registration" />>Registration</a>
-          </li>
-          <li class="pull-right">
-            <a href=<c:url value="/login" />>Login</a>
-          </li>
-        </sec:authorize>
-        
         <sec:authorize access="hasAuthority('ADMIN')">
-        	<li class="dropdown">
-        	<a href="#" data-toggle="dropdown" class="dropdown-toggle">Admin Tools</a>
-    		  <ul class="dropdown-menu">
-      		    <li><a href=<c:url value="/admin/banners" />>Available banners</a></li>
-      			<li><a href=<c:url value="/admin/banners/banner/newBanner" />>Add new Banner</a></li>
-      			<li><a href=<c:url value="/admin/item/newItem" />>Add new Item</a></li>
-    		  </ul>
-  		    </li>
-		</sec:authorize>
-
+          <li class="dropdown">
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle"> <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Admin Tools
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href=<c:url value="/admin/banners" />>Available banners</a>
+              </li>
+              <li>
+                <a href=<c:url value="/admin/banners/banner/newBanner" />>Add new Banner
+                </a>
+              </li>
+              <li>
+                <a href=<c:url value="/admin/item/newItem" />>Add new Item</a>
+              </li>
+            </ul>
+          </li>
+        </sec:authorize>
       </ul>
+
+      <sec:authorize access="isAuthenticated()">
+        <ul class="nav navbar-nav navbar-right">
+          <li class="navbar-right-button">
+            <a href=<c:url value="/logout" />>
+            <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout
+            </a>
+          </li>
+        </ul>
+      </sec:authorize>
+
+      <sec:authorize access="isAnonymous()">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <a href=<c:url value="/registration" />>
+            <span class="glyphicon glyphicon-registration-mark" aria-hidden="true"></span> Registration
+            </a>
+          </li>
+          <li class="navbar-right-button">
+            <a href=<c:url value="/login" />>
+            <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login
+            </a>
+          </li>
+        </ul>
+      </sec:authorize>
+
     </div>
   </div>
 </nav>

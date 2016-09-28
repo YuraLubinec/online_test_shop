@@ -31,7 +31,6 @@ import com.yuralubinec.spring.model.User;
 import com.yuralubinec.spring.service.BannerService;
 import com.yuralubinec.spring.service.ItemService;
 import com.yuralubinec.spring.service.UserService;
-import com.yuralubinec.spring.validator.ItemDTOValidator;
 
 @Controller
 @RequestMapping(value = "/")
@@ -55,9 +54,6 @@ public class ItemController {
 
     @Autowired
     BannerService bannerServiceImpl;
-
-    @Autowired
-    ItemDTOValidator itemValidator;
 
     @Autowired
     ApplicationContext appContext;
