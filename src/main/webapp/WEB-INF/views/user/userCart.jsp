@@ -3,47 +3,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<c:if test="${userName != null}">
-  Hello <strong><c:out value="${userName}"></c:out></strong>
-</c:if>
-
-<div>
- 
-  <table id="items">
-    <thead>
-      <tr>
-        <th class="col-md-2">Name</th>
-        <th class="col-md-4">Description</th>
-        <th class="col-md-1">Price</th>
-        <th class="col-md-4">Photo</th>
-        <th class="col-md-1"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <c:forEach items="${items}" var="item">
-        <tr class="">
-
-          <td>
-            <a href=<c:url value="/item/${item.id}" />>${item.name}</a>
-          </td>
-          <td>
-            <c:out value="${item.description}"></c:out>
-          </td>
-          <td>
-            <c:out value="${item.price}"></c:out>
-          </td>
-          <td>
-          	<img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
-          </td>
-          <td>
-            <button id="${item.id}" class="deleteFromCart">Remove</button>
-          </td>
-
-        </tr>
-      </c:forEach>
-    </tbody>
-  </table>
-  
+<div class="container">
+  <div class="row">
+    <c:forEach items="${items}" var="item">
+      <div class="col-sm-3 col-lg-3 col-md-3 item">
+        <div class="thumbnail">
+          <div class="hover">
+            <img alt="no photo" src=<c:url value="/item/${item.id}/photo" />>
+            <div class="caption">
+              <h4 class="pull-right"><c:out value="$ ${item.price}" /></h4>
+              <h4><c:out value="${item.name}" /></h4>
+              <button id="${item.id}" class="deleteFromCart btn btn-default">Remove</button>
+              <a class="btn btn-info " href=<c:url value="/item/${item.id}" />>More info</a>
+              <sec:authorize access="hasAuthority('CUSTOMER')">
+                <button id="${item.id}" class="btn btn-primary">
+                  <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Buy!
+                </button>
+              </sec:authorize>
+            </div>
+          </div>
+        </div>
+      </div>
+    </c:forEach>
+  </div>
+  <button class="btn btn-default back-btn">Back</button>
 </div>
 
 <input id="contextPath" type="hidden" value="${pageContext.request.contextPath}" />

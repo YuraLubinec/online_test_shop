@@ -17,6 +17,8 @@
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile Info
             </a>
           </li>
+        </sec:authorize>
+        <sec:authorize access="hasAuthority('CUSTOMER')">  
           <li>
             <a href=<c:url value="/user/cart" />>
             <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> User Cart

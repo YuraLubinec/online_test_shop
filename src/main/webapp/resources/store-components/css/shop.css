@@ -30,9 +30,24 @@ body {
     white-space: nowrap;
 }
 
+div.caption {
+	padding: 5px !important;
+}
+
+.hover {
+	border-style: solid;
+    border-width: 1px;
+    border-color: #ffffff;
+    border-radius: 4px 4px 4px 4px;
+}
+
+.hover:hover {
+    border-color: #D3D3D3;
+}
+
 .thumbnail img {
     width: 100%;
-    border-radius: 2px !important;
+    border-radius: 4px 4px 4px 4px;  
 }
 
 .ratings {

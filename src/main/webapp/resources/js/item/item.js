@@ -40,4 +40,9 @@ $(function() {
       },
     });
   };
+	
+  $(document).on('click', '.back-btn', function() {
+	  window.history.back();
+  });
+  
 });
