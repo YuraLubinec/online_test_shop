@@ -39,17 +39,12 @@ public class ItemController {
     private static final Logger LOGGER = Logger.getLogger(ItemController.class);
 
     public static final String ITEMS = "items";
-
     private static final String ITEM = "item";
-
     private static final String BANNERS_FOR_CAROUSEL = "banners";
-
     private static final String ACTIVE_BANNER = "activeBannerId";
-    
     private static final int ALOWED_BANNER_QUANTITY = 3;
-
     private static final int ACTIVE_BANNER_INDEX = 1;
-    
+
     @Autowired
     ItemService itemServiceImpl;
 
@@ -76,7 +71,8 @@ public class ItemController {
             model.addAttribute(BANNERS_FOR_CAROUSEL, banners.subList(0, size - ACTIVE_BANNER_INDEX));
         } else if (size > ALOWED_BANNER_QUANTITY) {
             model.addAttribute(ACTIVE_BANNER, banners.get(size - ACTIVE_BANNER_INDEX).getId());
-            model.addAttribute(BANNERS_FOR_CAROUSEL, banners.subList(size - ALOWED_BANNER_QUANTITY, size - ACTIVE_BANNER_INDEX));
+            model.addAttribute(BANNERS_FOR_CAROUSEL,
+                    banners.subList(size - ALOWED_BANNER_QUANTITY, size - ACTIVE_BANNER_INDEX));
         }
 
         if (filterName != null && filterName.length() != 0) {

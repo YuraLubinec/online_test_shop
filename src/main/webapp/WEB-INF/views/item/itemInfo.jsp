@@ -5,8 +5,8 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <div class="container">
-  <div class="col-md-8 col-md-offset-2">
-    <div class="thumbnail">
+  <div class="thumbnail">
+    <div class="col-md-8 col-md-offset-2">
       <div class="row">
         <img alt="no photo" class="img-responsive" src=<c:url value="/item/${item.id}/photo" />>
       </div>   

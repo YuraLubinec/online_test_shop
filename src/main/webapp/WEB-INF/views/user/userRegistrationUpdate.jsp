@@ -2,9 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<div class="">
-  <form:form action="" method="POST" modelAttribute="user" class="">
+<div class="container">
+  <div class="row">
+  	<div class="col-md-3">
+
+  <form:form action="" method="POST" modelAttribute="user" class="form-group pull-down">
     <fieldset>
     
       <form:hidden path="id"/>
@@ -25,54 +29,58 @@
         </c:if>
       </div>
 
-      <legend>User account data</legend>
+      <legend>User profile info</legend>
 
-      <div class="">
-        <div class="">
+      
           <form:label path="login" class="">Email*:</form:label>
           <div class="">
-            <form:input type="email" path="login" class="" cssErrorClass="" />
+            <form:input type="email" path="login" class="form-control" cssErrorClass="" />
             <form:errors path="login" class="" />
           </div>
-        </div>
+    
 
-        <div class="">
-          <label class="">Password*:</label>
+        
+          <form:label path="password" class="">Password*:</form:label>
           <div class="" >
-            <form:input type="password" path="password" class="" cssErrorClass="" />
+            <form:input type="password" path="password" class="form-control" cssErrorClass="" />
             <form:errors path="password" class="" />
           </div>
-        </div>
+        
 
-        <div class="">
-          <label class="">First name*:</label>
+      
+          <form:label path="name" class="">First name*:</form:label>
           <div class="">
-            <form:input type="text" path="name" class="" cssErrorClass=""/>
+            <form:input type="text" path="name" class="form-control" cssErrorClass=""/>
             <form:errors path="name" class="" />
           </div>
-        </div>
+        
 
-        <div class="">
-          <label class="">Last name*:</label>
+       
+          <form:label path="surname" class="">Last name*:</form:label>
           <div class="">
-            <form:input type="text" path="surname" class="" cssErrorClass=""/>
+            <form:input type="text" path="surname" class="form-control" cssErrorClass=""/>
             <form:errors path="surname" class="" />
           </div>
-        </div>
-      </div>
+       
+
       
-      <div class="">
-        <div class="">
-          <div class="">
-            <button id="" type="submit" class="">Save</button>
-            <a href=<c:url value="/" /> class="">Cancel</a>
+          <div class="pull-down">
+            <button id="" type="submit" class="btn btn-success">Save</button>
+            <sec:authorize access="isAuthenticated()">
+              <a href=<c:url value="/" /> class="btn btn-default">Cancel</a>
+            </sec:authorize>
+            <sec:authorize access="isAnonymous()">
+              <a href=<c:url value="/login" /> class="btn btn-default">Cancel</a>
+            </sec:authorize> 
           </div>
-        </div>
-      </div>
+       
 
     </fieldset>
   </form:form>
 </div>
+</div>
+</div>
+
 
 <!-- <script src=<c:url value="/resources/bower_components/jquery/dist/jquery.validate.min.js" />></script> -->
 

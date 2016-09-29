@@ -68,11 +68,6 @@ input[type=number]::-webkit-outer-spin-button {
 	margin-left: 5px; 
 }
 
-.no-side-padding {
-/* 	padding-left: 0px !important; */
-/* 	padding-right: 0px !important; */
-}
-
 .row .carousel-holder {
 	margin-bottom: 0px;
 }
@@ -88,12 +83,12 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .form-signin
-{
-    max-width: 330px;
+{ 
     padding: 15px;
-    padding-top: 150px;
-    margin: 0 auto; 
+    padding-top: 100px;
+    margin: 0 auto;
 }
+
 .form-signin .form-signin-heading, .form-signin .checkbox
 {
     margin-bottom: 10px;
@@ -146,4 +141,13 @@ input[type=number]::-webkit-outer-spin-button {
 .email-field 
 {
 	margin-bottom: 10px;
+}
+
+.container {
+	margin-right: 86.5px;
+	margin-left: 86.5px;	
+}
+
+.pull-down {
+	margin-top: 10px;
 }

@@ -4,7 +4,6 @@
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
-    <div class="" id="">
       <ul class="nav navbar-nav">
         <li class="home-navbar">
           <a class="home-navbar" href=<c:url value="/" />>
