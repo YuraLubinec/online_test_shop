@@ -45,7 +45,11 @@ public class ItemController {
     private static final String BANNERS_FOR_CAROUSEL = "banners";
 
     private static final String ACTIVE_BANNER = "activeBannerId";
+    
+    private static final int ALOWED_BANNER_QUANTITY = 3;
 
+    private static final int ACTIVE_BANNER_INDEX = 1;
+    
     @Autowired
     ItemService itemServiceImpl;
 
@@ -66,13 +70,13 @@ public class ItemController {
         List<Item> itemList = itemServiceImpl.findAll();
         int size = banners.size();
 
-        if (size != 0 && size <= 3) {
+        if (size != 0 && size <= ALOWED_BANNER_QUANTITY) {
 
-            model.addAttribute(ACTIVE_BANNER, banners.get(size - 1).getId());
-            model.addAttribute(BANNERS_FOR_CAROUSEL, banners.subList(0, size - 1));
-        } else if (size > 3) {
-            model.addAttribute(ACTIVE_BANNER, banners.get(size - 1).getId());
-            model.addAttribute(BANNERS_FOR_CAROUSEL, banners.subList(size - 3, size - 1));
+            model.addAttribute(ACTIVE_BANNER, banners.get(size - ACTIVE_BANNER_INDEX).getId());
+            model.addAttribute(BANNERS_FOR_CAROUSEL, banners.subList(0, size - ACTIVE_BANNER_INDEX));
+        } else if (size > ALOWED_BANNER_QUANTITY) {
+            model.addAttribute(ACTIVE_BANNER, banners.get(size - ACTIVE_BANNER_INDEX).getId());
+            model.addAttribute(BANNERS_FOR_CAROUSEL, banners.subList(size - ALOWED_BANNER_QUANTITY, size - ACTIVE_BANNER_INDEX));
         }
 
         if (filterName != null && filterName.length() != 0) {
