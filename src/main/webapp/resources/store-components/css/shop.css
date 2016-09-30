@@ -166,3 +166,15 @@ input[type=number]::-webkit-outer-spin-button {
 .pull-down {
 	margin-top: 10px;
 }
+
+.display-none {
+	display: none !important;
+}
+
+.txt-area {
+	min-height: 100px;
+	max-height: 150px;
+	resize: vertical;
+	overflow: hidden;
+}
+

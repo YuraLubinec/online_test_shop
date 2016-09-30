@@ -71,7 +71,5 @@
   </div>
 </div>
 
-<!-- <script src=<c:url value="/resources/bower_components/jquery/dist/jquery.validate.min.js" />></script> -->
-
 <!-- Main page script -->
 <!-- <script src=<c:url value="/resources/js/account.js" />></script> -->
