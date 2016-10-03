@@ -2,35 +2,33 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div>
-  <form:form action="" method="POST" modelAttribute="bannerDTO" class="" enctype="multipart/form-data">
-    <fieldset>
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
 
-      <div class="">
+      <form:form action="" method="POST" modelAttribute="bannerDTO" class="" enctype="multipart/form-data">
 
-        <div class="">
-          <form:label path="name" class="">Name*:</form:label>
-          <div class="">
-            <form:input type="text" path="name" class="" cssErrorClass="" />
-            <form:errors path="name" class="" />
-          </div>
+        <div>
+          <form:label path="name">Name*:</form:label>
+          <form:input type="text" path="name" class="form-control" cssErrorClass="" />
+          <form:errors path="name" class="" />
         </div>
 
-        <div class="">
-          <label class="">Photo:</label>
-          <div class="">
-            <form:input type="file" path="photo" class="" />
-            <form:errors path="photo" class="" />
-          </div>
+        <div class="pull-down">
+          <form:label path="photo">Photo:</form:label>
+          <label class="btn btn-default btn-file">
+          	<span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Select photo
+    	    <form:input type="file" path="photo" class="display-none" />
+          </label>
+          <form:errors path="photo" class="" />
         </div>
-
-        <c:if test="${photo_type_error!=null}">
-          <c:out value="${photo_type_error}"></c:out>
-        </c:if>
-
-      </div>
-
-      <button id="" type="submit" class="btn btn-primary">Save</button>
-    </fieldset>
-  </form:form>
+		
+		<div class="pull-down">
+          <button id="" type="submit" class="btn btn-success">Save</button>
+          <a href=<c:url value="/admin/banners" /> class="btn btn-default">Cancel</a>
+		</div>
+		
+      </form:form>
+    </div>
+  </div>
 </div>

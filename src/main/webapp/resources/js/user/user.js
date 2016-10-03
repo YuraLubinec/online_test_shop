@@ -1,9 +1,7 @@
 $(function() {
   var contextPath = $('#contextPath').val();
   $(document).on('click', '.deleteFromCart', function() {
-    if (confirm('Do you really want to remove this item from your cart?')) {
-      deleteItem($(this));
-    }
+    deleteItem($(this));
     return false;
   });
 

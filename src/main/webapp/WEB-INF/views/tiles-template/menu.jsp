@@ -14,14 +14,14 @@
         <sec:authorize access="isAuthenticated()">
           <li>
             <a href=<c:url value="/user" />>
-            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile Info
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile info
             </a>
           </li>
         </sec:authorize>
         <sec:authorize access="hasAuthority('CUSTOMER')">  
           <li>
             <a href=<c:url value="/user/cart" />>
-            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> User Cart
+            <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> User cart
             </a>
           </li>
         </sec:authorize>
@@ -32,14 +32,14 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href=<c:url value="/admin/banners" />>Available banners</a>
+                <a href=<c:url value="/admin/banners" />>List of banners</a>
               </li>
               <li>
-                <a href=<c:url value="/admin/banners/banner/newBanner" />>Add new Banner
+                <a href=<c:url value="/admin/banners/banner/newBanner" />>Add new banner
                 </a>
               </li>
               <li>
-                <a href=<c:url value="/admin/item/newItem" />>Add new Item</a>
+                <a href=<c:url value="/admin/item/newItem" />>Add new item</a>
               </li>
             </ul>
           </li>

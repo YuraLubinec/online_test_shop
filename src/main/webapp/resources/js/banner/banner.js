@@ -15,7 +15,7 @@ $(function() {
 	      contentType: 'application/json',
 	      data: JSON.stringify(butObj.prop('id')),
 	      success: function() {
-	        butObj.closest('tr').remove();
+	        butObj.closest('div.item').remove();
 	      },
 	      error: function(jqXHR) {
 	        alert('Smth wrong... code: ' + jqXHR.status);

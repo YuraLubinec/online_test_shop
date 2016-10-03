@@ -12,46 +12,31 @@
 
           <legend>Item info</legend>
 
-          <div class="">
+          <div>
+            <form:label path="name" >Name*:</form:label>
+            <form:input type="text" path="name" class="form-control" cssErrorClass="" />
+            <form:errors path="name" class="" />
+          </div>
 
-            <div class="">
-              <form:label path="name" class="">Name*:</form:label>
-              <div class="">
-                <form:input type="text" path="name" class="form-control" cssErrorClass="" />
-                <form:errors path="name" class="" />
-              </div>
-            </div>
+          <div>
+            <form:label path="description" >Description*:</form:label>
+            <form:textarea path="description" class="form-control txt-area" cssErrorClass="" />
+            <form:errors path="description" class="" />
+          </div>
 
-            <div class="">
-              <label class="">Description*:</label>
-              <div class="">
-                <form:textarea path="description" class="form-control txt-area" cssErrorClass="" />
-                <form:errors path="description" class="" />
-              </div>
-            </div>
+          <div>
+            <form:label path="price" >Price*:</form:label>
+            <form:input type="number" path="price" class="form-control" cssErrorClass="" />
+            <form:errors path="price" class="" />
+          </div>
 
-            <div class="">
-              <label class="">Price*:</label>
-              <div class="">
-                <form:input type="number" path="price" class="form-control" cssErrorClass="" />
-                <form:errors path="price" class="" />
-              </div>
-            </div>
-
-            <div class="">
-              <label class="">Photo:</label>
-              <div class="">
-                <label class="btn btn-default btn-file">Select photo 
-    		  	  <form:input type="file" path="photo" class="display-none" />
-                </label>
-                <form:errors path="photo" class="" />
-              </div>
-            </div>
-
-            <c:if test="${photo_type_error!=null}">
-              <c:out value="${photo_type_error}"></c:out>
-            </c:if>
-
+          <div class="pull-down">
+            <form:label path="photo" >Photo:</form:label>
+            <label class="btn btn-default btn-file">
+              <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Select photo 
+    		  <form:input type="file" path="photo" class="display-none" />
+            </label>
+            <form:errors path="photo" class="" />
           </div>
 
           <div class="pull-down">
