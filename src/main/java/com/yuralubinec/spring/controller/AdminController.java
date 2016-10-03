@@ -77,10 +77,6 @@ public class AdminController {
 
         Item item = itemServiceImpl.findById(id);
         if (result.hasErrors()) {
-            itemDTO.setName(item.getName());
-            itemDTO.setDescription(item.getDescription());
-            itemDTO.setPrice(item.getPrice());
-            model.addAttribute(ITEM, itemDTO);
             return "itemCreateUpdate";
         }
         itemServiceImpl.update(itemDTO);
@@ -99,7 +95,6 @@ public class AdminController {
     public String createItem(@Validated @ModelAttribute ItemDTO itemDTO, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            model.addAttribute(ITEM, itemDTO);
             return "itemCreateUpdate";
         }
 
@@ -132,15 +127,14 @@ public class AdminController {
     public String getBannerCreationPage(Model model) {
  
         model.addAttribute(BANNER_DTO, new BannerDTO());
-        return "bannerCreateUpdate";
+        return "bannerCreate";
     }
 
     @RequestMapping(value = "/banners/banner/newBanner", method = RequestMethod.POST)
     public String saveBanner(@Validated @ModelAttribute BannerDTO bannerDTO, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            model.addAttribute(BANNER_DTO, bannerDTO);
-            return "bannerCreateUpdate";
+            return "bannerCreate";
         }
         bannerServiceImpl.save(bannerDTO);
         return "redirect:/admin/banners";

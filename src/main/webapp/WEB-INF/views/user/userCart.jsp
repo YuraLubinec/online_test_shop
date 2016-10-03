@@ -26,7 +26,7 @@
       </div>
     </c:forEach>
   </div>
-  <button class="btn btn-default back-btn">Back</button>
+  <button class="btn btn-default back-btn pull-down">Back</button>
 </div>
 
 <input id="contextPath" type="hidden" value="${pageContext.request.contextPath}" />

@@ -33,26 +33,26 @@
 
           <form:label path="login" class="">Email*:</form:label>
           <div class="">
-            <form:input type="email" path="login" class="form-control" cssErrorClass="" />
-            <form:errors path="login" class="" />
+            <form:input type="email" path="login" class="form-control" cssErrorClass="error" />
+            <form:errors path="login" class="help-block with-errors" />
           </div>
 
           <form:label path="password" class="">Password*:</form:label>
           <div class="">
-            <form:input type="password" path="password" class="form-control" cssErrorClass="" />
-            <form:errors path="password" class="" />
+            <form:input type="password" path="password" class="form-control" cssErrorClass="error" />
+            <form:errors path="password" class="help-block with-errors" />
           </div>
 
           <form:label path="name" class="">First name*:</form:label>
           <div class="">
-            <form:input type="text" path="name" class="form-control" cssErrorClass="" />
-            <form:errors path="name" class="" />
+            <form:input type="text" path="name" class="form-control" cssErrorClass="error" />
+            <form:errors path="name" class="help-block with-errors" />
           </div>
 
           <form:label path="surname" class="">Last name*:</form:label>
           <div class="">
-            <form:input type="text" path="surname" class="form-control" cssErrorClass="" />
-            <form:errors path="surname" class="" />
+            <form:input type="text" path="surname" class="form-control" cssErrorClass="error" />
+            <form:errors path="surname" class="help-block with-errors" />
           </div>
 
           <div class="pull-down">

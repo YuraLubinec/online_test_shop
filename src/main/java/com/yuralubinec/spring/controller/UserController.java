@@ -48,7 +48,6 @@ public class UserController {
     public String registerUser(@Validated @ModelAttribute User user, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            model.addAttribute(USER, user);
             return "userRegistrationUpdate";
         }
 
@@ -67,12 +66,6 @@ public class UserController {
     public String editAccount(@Validated @ModelAttribute User user, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            User us = userServiceImpl.findById(user.getId());
-            user.setLogin(us.getLogin());
-            user.setName(us.getName());
-            user.setPassword(us.getPassword());
-            user.setSurname(us.getSurname());
-            model.addAttribute(USER, user);
             return "userRegistrationUpdate";
         }
         userServiceImpl.update(user);
@@ -86,6 +79,5 @@ public class UserController {
         model.addAttribute(USER, user);
         model.addAttribute(USER_ITEMS, user.getUserItems());
         return "userCart";
-    }
-    
+    }    
 }

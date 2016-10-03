@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BannerDTO implements Serializable {
@@ -23,7 +23,7 @@ public class BannerDTO implements Serializable {
         this.id = id;
     }
 
-    @NotEmpty
+    @NotBlank
     @Size(max = 75)
     public String getName() {
         return name;

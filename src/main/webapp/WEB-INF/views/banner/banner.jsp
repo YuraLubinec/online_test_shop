@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <div class="container">
-  <div class="row">
+  <div class="row pull-down">
     <div class="col-md-12">
       <div class="row">
         <c:forEach items="${banners}" var="banner">

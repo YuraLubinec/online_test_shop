@@ -14,9 +14,9 @@
     <put-attribute name="body" value="/WEB-INF/views/banner/banner.jsp" />
   </definition>
   
-  <definition name="bannerCreateUpdate" extends="DefaultTemplate">
+  <definition name="bannerCreate" extends="DefaultTemplate">
     <put-attribute name="title" value="List of banners" />
-    <put-attribute name="body" value="/WEB-INF/views/banner/bannerCreateUpdate.jsp" />
+    <put-attribute name="body" value="/WEB-INF/views/banner/bannerCreate.jsp" />
   </definition>
   
 </tiles-definitions>        

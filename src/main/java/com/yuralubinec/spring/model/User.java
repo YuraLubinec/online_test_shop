@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -43,7 +44,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    @NotEmpty
+    @NotBlank
     @Column(name = "login", length = 75, unique = true, nullable = false)
     public String getLogin() {
         return login;
@@ -53,7 +54,7 @@ public class User implements Serializable {
         this.login = login;
     }
 
-    @NotEmpty
+    @NotBlank
     @Column(name = "password", length = 32, nullable = false)
     public String getPassword() {
         return password;
@@ -63,7 +64,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    @NotEmpty
+    @NotBlank
     @Column(name = "name", length = 75, nullable = false)
     public String getName() {
         return name;
@@ -73,7 +74,7 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    @NotEmpty
+    @NotBlank
     @Column(name = "surname", length = 75, nullable = false)
     public String getSurname() {
         return surname;
