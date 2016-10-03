@@ -7,7 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Error</title>
-  <link href=<c:url value="/resources/dist/css/error-style.css" /> rel="stylesheet" type="text/css" media="all" />
+  <link href="<c:url value="resources/store-components/css/error-style.css" />" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
