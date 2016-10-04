@@ -7,6 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.yuralubinec.spring.dto.BannerDTO;
 
+/**
+ * Implementation of {@link Validator} interface for additional checking {@link BannerDTO} instance. Checks the
+ * format of BannerDTO's photo parameter.
+ *
+ */
+
 @Component
 public class BannerDTOValidator implements Validator  {
 

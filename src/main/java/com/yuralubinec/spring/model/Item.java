@@ -14,6 +14,11 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+/**
+ * The Item class represents {@code Item} entity
+ * stored in the database.
+ */
+
 @Entity
 @Table(name = "item")
 public class Item implements Serializable {

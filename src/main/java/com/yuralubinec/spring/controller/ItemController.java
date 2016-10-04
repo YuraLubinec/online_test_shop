@@ -33,7 +33,6 @@ import com.yuralubinec.spring.service.ItemService;
 import com.yuralubinec.spring.service.UserService;
 
 @Controller
-@RequestMapping(value = "/")
 public class ItemController {
 
     private static final Logger LOGGER = Logger.getLogger(ItemController.class);
@@ -57,7 +56,14 @@ public class ItemController {
     @Autowired
     ApplicationContext appContext;
 
-    @RequestMapping(method = RequestMethod.GET)
+    /**
+     * Retrieves home page.
+     * 
+     * @param itemFilterDTO {@link ItemFilterDTO} with filter conditions
+     * @param model {@link Model} object
+     * @return name of view
+     */
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getAllItems(@ModelAttribute ItemFilterDTO itemFilterDTO, Model model) {
 
         String filterName = itemFilterDTO.getItemNameFilter();
@@ -81,6 +87,13 @@ public class ItemController {
         return "items";
     }
 
+    /**
+     * Retrieves item info page.
+     * 
+     * @param id {@link Item} identifier
+     * @param model {@link Model} object
+     * @return name of view
+     */
     @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
     public String getItemInfo(@PathVariable int id, Model model) {
 
@@ -88,6 +101,12 @@ public class ItemController {
         return "itemInfo";
     }
 
+    /**
+     * Retrieves item photo.
+     * 
+     * @param response {@link HttpServletResponse} object
+     * @param id {@link Item} identifier
+     */
     @RequestMapping(value = "/item/{id}/photo", method = RequestMethod.GET)
     public void getItemPhoto(HttpServletResponse response, @PathVariable int id) {
 
@@ -102,6 +121,11 @@ public class ItemController {
         }
     }
 
+    /**
+     * Handles adding items to cart. If success, returns success message, else returns fail message .
+     * 
+     * @param id of item which should be added
+     */
     @RequestMapping(value = "/item/addToUserCart", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
             "text/html; charset=UTF-8" })
     public @ResponseBody String addItemToUserCart(@RequestBody int id) {
@@ -121,12 +145,17 @@ public class ItemController {
         if (!items.contains(item)) {
             items.add(item);
             userServiceImpl.update(user);
-            return appContext.getMessage("Item.secces", null, null);
+            return appContext.getMessage("Item.succes", null, null);
         } else {
             return appContext.getMessage("Item.already.exist", null, null);
         }
     }
 
+    /**
+     * Handles removing items from cart. If success, returns 204 (NO_CONTENT) HTTP status.
+     * 
+     * @param id of item which should be removed
+     */
     @RequestMapping(value = "/item/deleteFromUserCart", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteItemFromUserCart(@RequestBody int id) {
@@ -142,6 +171,12 @@ public class ItemController {
         }
     }
 
+    /**
+     * Retrieves banner photo.
+     * 
+     * @param response {@link HttpServletResponse} object
+     * @param id {@link Banner} identifier
+     */
     @RequestMapping(value = "/banner/{id}/photo", method = RequestMethod.GET)
     public void getBannerPhoto(HttpServletResponse response, @PathVariable int id) {
 
@@ -155,5 +190,4 @@ public class ItemController {
             }
         }
     }
-
 }

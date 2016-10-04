@@ -5,6 +5,10 @@ import java.util.List;
 import com.yuralubinec.spring.dto.ItemDTO;
 import com.yuralubinec.spring.model.Item;
 
+/**
+ * ItemService is the interface for implementing CRUD operation on {@link Item} instance in the database
+ */
+
 public interface ItemService {
 
     public Item findById(int id);

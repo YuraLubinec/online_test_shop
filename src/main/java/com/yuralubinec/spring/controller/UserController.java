@@ -16,6 +16,12 @@ import com.yuralubinec.spring.model.User;
 import com.yuralubinec.spring.service.UserService;
 import com.yuralubinec.spring.validator.UserValidator;
 
+/**
+ * Handles and retrieves user-account page depending on the URI template. A user must be log-in first he can access
+ * this page.
+ * 
+ */
+
 @Controller
 public class UserController {
 
@@ -34,6 +40,12 @@ public class UserController {
         binder.addValidators(userValidator);
     }
 
+    /**
+     * Retrieves user registration page.
+     * 
+     * @param model {@link Model} object
+     * @return name of view
+     */
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String getUserRegistrationPage(Model model) {
 
@@ -41,6 +53,15 @@ public class UserController {
         return "userRegistrationUpdate";
     }
 
+    /**
+     * Handles user registration and saves it to the database. In case of validation errors forwards
+     * user to user registration page and shows validation result's messages, otherwise show success massage 
+     * on current page.
+     * 
+     * @param user {@link User} instance should be updated
+     * @param result BindingResult instance for result of validation
+     * @return name of view will be returned
+     */
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registerUser(@Validated @ModelAttribute User user, BindingResult result, Model model) {
 
@@ -52,15 +73,31 @@ public class UserController {
         return "redirect:/registration?registrationSuccess=true";
     }
 
+    /**
+     * Retrieves user update page.
+     * 
+     * @param model {@link Model} object
+     * @return name of view
+     */
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public String getUserInfoPage(Model model) {
+        
         model.addAttribute(USER, userServiceImpl
                 .findById(Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName())));
         return "userRegistrationUpdate";
     }
 
+    /**
+     * Handles changes of user-account information and saves it to the database. In case of validation errors forwards
+     * user to user update page and shows validation result's messages, otherwise show success massage 
+     * on current page.
+     * 
+     * @param user {@link User} instance should be updated
+     * @param result BindingResult instance for result of validation
+     * @return name of view will be returned
+     */
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public String editAccount(@Validated @ModelAttribute User user, BindingResult result, Model model) {
+    public String editAccount(@Validated @ModelAttribute User user, BindingResult result) {
 
         if (result.hasErrors()) {
             return "userRegistrationUpdate";
@@ -68,9 +105,16 @@ public class UserController {
         userServiceImpl.update(user);
         return "redirect:/user?updateSuccess=true";
     }
-
+  
+    /**
+     * Retrieves user cart page
+     * 
+     * @param model {@link Model} object
+     * @return name of view will be returned
+     */
     @RequestMapping(value = "/user/cart", method = RequestMethod.GET)
     public String getUserCart(Model model) {
+       
         User user = userServiceImpl
                 .findById(Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName()));
         model.addAttribute(USER, user);

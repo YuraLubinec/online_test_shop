@@ -9,6 +9,12 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
+
+/**
+ * DTO class using for validating {@link Item} instances.
+ * 
+ */
+
 public class ItemDTO implements Serializable {
 
     private static final long serialVersionUID = -6448933390269977215L;

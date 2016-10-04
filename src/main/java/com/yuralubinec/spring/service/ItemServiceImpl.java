@@ -14,6 +14,12 @@ import com.yuralubinec.spring.dao.ItemDao;
 import com.yuralubinec.spring.dto.ItemDTO;
 import com.yuralubinec.spring.model.Item;
 
+/**
+ * ItemServiceImpl is the class which implements CRUD operation on {@link Item}
+ * instance in the database. The service uses Spring HibernateTransactionManager
+ * for managing transaction with the database and log4j for logging.
+ */
+
 @Service
 public class ItemServiceImpl implements ItemService {
 
@@ -22,6 +28,13 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     ItemDao dao;
 
+    /**
+     * Finds {@link Item} in DB by item id
+     * 
+     * @param id of the Item instance stored in DB
+     * @return Item object
+     * @throws DataAccessException
+     */
     @Transactional
     @Override
     public Item findById(int id) {
@@ -34,6 +47,13 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
+    /**
+     * Finds all {@link Item} in DB with name filter
+     * 
+     * @param part of the Item instance name stored in DB
+     * @return List of Items
+     * @throws DataAccessException
+     */
     @Transactional
     @Override
     public List<Item> findWithFilter(String name) {
@@ -46,6 +66,12 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
+    /**
+     * Finds all {@link Item} in DB
+     * 
+     * @return List of Items
+     * @throws DataAccessException
+     */
     @Transactional
     @Override
     public List<Item> findAll() {
@@ -58,6 +84,12 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
+    /**
+     * Saves {@link Item} to DB
+     * 
+     * @param ItemDTO instance which should be saved to DB
+     * @throws DataAccessException
+     */
     @Transactional
     @Override
     public void save(ItemDTO itemDTO) {
@@ -83,6 +115,12 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
+    /**
+     * Deletes {@link Item} from DB
+     * 
+     * @param id of the item which should be deleted from DB
+     * @throws DataAccessException
+     */
     @Transactional
     @Override
     public void delete(int id) {
@@ -95,11 +133,17 @@ public class ItemServiceImpl implements ItemService {
         }
     }
 
+    /**
+     * Updates {@link Item} in DB
+     * 
+     * @param ItemDTO instance which should be updated
+     * @throws DataAccessException
+     */
     @Transactional
     @Override
     public void update(ItemDTO item) {
 
-        Item entity = null;
+        Item entity;
         int id = item.getId();
         try {
             entity = dao.findById(id);

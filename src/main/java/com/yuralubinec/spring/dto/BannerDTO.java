@@ -7,6 +7,13 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.yuralubinec.spring.model.Banner;
+
+/**
+ * DTO class using for validating {@link Banner} instances.
+ * 
+ */
+
 public class BannerDTO implements Serializable {
 
     private static final long serialVersionUID = -7329431844024098106L;

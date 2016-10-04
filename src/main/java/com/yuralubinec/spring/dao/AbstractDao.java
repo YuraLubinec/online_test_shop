@@ -8,6 +8,14 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yuralubinec.spring.model.Item;
+
+/**
+ * AbstractDao is abstract class with hibernate methods for CRUD operations on
+ * {@link Item}, {@link User}, {@link Banner} instances in the database
+ *
+ */
+
 public abstract class AbstractDao<ID extends Serializable, T> {
 
     private final Class<T> persClass;
@@ -20,26 +28,30 @@ public abstract class AbstractDao<ID extends Serializable, T> {
 
     @Autowired
     private SessionFactory sessionFactory;
-    
-    protected Session getSesssion(){
+
+    protected Session getSesssion() {
+
         return sessionFactory.getCurrentSession();
     }
-    
-    public T getById(ID id){
-        return (T)getSesssion().get(persClass,id);
+
+    public T getById(ID id) {
+
+        return (T) getSesssion().get(persClass, id);
     }
-    
+
     public void persist(T entity) {
-        getSesssion().persist(entity);      
+
+        getSesssion().persist(entity);
     }
-    
+
     public void delete(T entity) {
-        getSesssion().delete(entity);       
+
+        getSesssion().delete(entity);
     }
-    
-    
-    protected Criteria createEntityCriteria(){
+
+    protected Criteria createEntityCriteria() {
+
         return getSesssion().createCriteria(persClass);
     }
-    
+
 }

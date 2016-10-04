@@ -14,6 +14,12 @@ import com.yuralubinec.spring.dao.BannerDao;
 import com.yuralubinec.spring.dto.BannerDTO;
 import com.yuralubinec.spring.model.Banner;
 
+/**
+ * BannerServiceImpl is the class which implements CRUD operation on {@link Banner} instance in the database.
+ * The service uses Spring HibernateTransactionManager for managing transaction with the database and log4j for
+ * logging.
+ */
+
 @Service
 public class BannerServiceImpl implements BannerService {
 
@@ -22,6 +28,12 @@ public class BannerServiceImpl implements BannerService {
     @Autowired
     BannerDao dao;
 
+    /**
+     * Finds all {@link Banner} in DB
+     * 
+     * @return List of Banners
+     * @throws DataAccessException
+     */
     @Transactional
     @Override
     public List<Banner> getAllBanners() {
@@ -34,6 +46,13 @@ public class BannerServiceImpl implements BannerService {
         }
     }
 
+    /**
+     * Finds {@link Banner} in DB by banner id
+     * 
+     * @param id of the Banner instance stored in DB
+     * @return Banner object
+     * @throws DataAccessException
+     */
     @Transactional
     @Override
     public Banner getBunnerById(int id) {
@@ -46,6 +65,12 @@ public class BannerServiceImpl implements BannerService {
         }
     }
 
+    /**
+     * Deletes {@link Banner} from DB
+     * 
+     * @param id of the Banner instance stored in DB
+     * @throws DataAccessException
+     */
     @Transactional
     @Override
     public void deleteBanner(int id) {
@@ -58,11 +83,17 @@ public class BannerServiceImpl implements BannerService {
         }
     }
 
+    /**
+     * Updates {@link Banner} in DB
+     * 
+     * @param BannerDTO instance which should be updated
+     * @throws DataAccessException
+     */
     @Transactional
     @Override
     public void update(BannerDTO bannerDTO) {
 
-        Banner banner = null;
+        Banner banner;
         int id = bannerDTO.getId();
         try {
             banner = dao.findBannerById(id);
@@ -81,6 +112,12 @@ public class BannerServiceImpl implements BannerService {
         }
     }
 
+    /**
+     * Saves {@link Banner} to DB
+     * 
+     * @param BannerDTO instance which should be saved to DB
+     * @throws DataAccessException
+     */
     @Transactional
     @Override
     public void save(BannerDTO bannerDTO) {

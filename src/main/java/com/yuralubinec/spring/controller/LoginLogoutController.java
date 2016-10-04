@@ -12,12 +12,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * Handles and retrieves login and logout.
+ * 
+ */
 @Controller
 public class LoginLogoutController {
 
 	private static final String SUCCES = "succes";
     private static final String MESSAGE = "message";
 
+    /**
+     * Retrieves login page.
+     * 
+     * @return name of view
+     */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String getLoginPage(Model model) {
 
@@ -29,6 +38,13 @@ public class LoginLogoutController {
 		return "login";
 	}
 
+	 /**
+     * Handles logout process.
+     * 
+     * @param request {@link HttpServletRequest} instance
+     * @param response {@link HttpServletResponse} instance
+     * @return redirect to login page
+     */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 
@@ -39,11 +55,16 @@ public class LoginLogoutController {
 		return "redirect:/login";
 	}
 
+	/**
+     * Handles Access denied page.
+     * 
+     * @param model {@link Model} object
+     * @return name of error view
+     */
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String error403(Model model) {
 
 		model.addAttribute(MESSAGE, "You don't have permission to access this page");
 		return "error";
 	}
-
 }

@@ -19,6 +19,11 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.hibernate.validator.constraints.NotBlank;
 
+/**
+ * The User class represents {@code User} entity
+ * stored in the database.
+ */
+
 @Entity
 @Table(name = "user")
 public class User implements Serializable {

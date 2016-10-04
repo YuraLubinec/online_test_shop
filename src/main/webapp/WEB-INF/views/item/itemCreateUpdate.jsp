@@ -31,7 +31,7 @@
           </div>
 
           <div class="pull-down">
-            <form:label path="photo" >Photo:</form:label>
+            <form:label path="photo" >Photo (800x300 pixels, image/jpeg format):</form:label>
             <label class="btn btn-default btn-file">
               <span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Select photo 
     		  <form:input type="file" path="photo" class="display-none"  />

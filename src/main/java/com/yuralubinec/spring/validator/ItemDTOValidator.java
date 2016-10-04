@@ -7,6 +7,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.yuralubinec.spring.dto.ItemDTO;
 
+/**
+ * Implementation of {@link Validator} interface for additional checking {@link ItemDTO } instance. Checks the
+ * format of ItemDTO's photo parameter.
+ *
+ */
+
 @Component
 public class ItemDTOValidator implements Validator {
 
