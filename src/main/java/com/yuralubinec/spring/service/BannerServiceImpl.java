@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,29 +26,50 @@ public class BannerServiceImpl implements BannerService {
     @Override
     public List<Banner> getAllBanners() {
 
-        return dao.getAllBanners();
+        try {
+            return dao.getAllBanners();
+        } catch (DataAccessException e) {
+            LOGGER.error("Unable to load banners from DB", e);
+            throw e;
+        }
     }
 
     @Transactional
     @Override
     public Banner getBunnerById(int id) {
 
-        return dao.findBannerById(id);
+        try {
+            return dao.findBannerById(id);
+        } catch (DataAccessException e) {
+            LOGGER.error("Unable to load banner with id" + id, e);
+            throw e;
+        }
     }
 
     @Transactional
     @Override
     public void deleteBanner(int id) {
 
-        dao.deleteBanner(id);
-
+        try {
+            dao.deleteBanner(id);
+        } catch (Exception e) {
+            LOGGER.error("Unable to delete banner with id" + id, e);
+            throw e;
+        }
     }
 
     @Transactional
     @Override
     public void update(BannerDTO bannerDTO) {
 
-        Banner banner = dao.findBannerById(bannerDTO.getId());
+        Banner banner = null;
+        int id = bannerDTO.getId();
+        try {
+            banner = dao.findBannerById(id);
+        } catch (DataAccessException e) {
+            LOGGER.error("Unable to delete banner with id" + id, e);
+            throw e;
+        }
         banner.setName(bannerDTO.getName());
         MultipartFile photo = bannerDTO.getPhoto();
         if (photo != null) {
@@ -55,7 +77,6 @@ public class BannerServiceImpl implements BannerService {
                 banner.setPhoto(photo.getBytes());
             } catch (IOException e) {
                 LOGGER.error("unable to get photo from request parameter", e);
-                e.printStackTrace();
             }
         }
     }
@@ -72,9 +93,13 @@ public class BannerServiceImpl implements BannerService {
                 banner.setPhoto(photo.getBytes());
             } catch (IOException e) {
                 LOGGER.error("unable to get photo from request parameter", e);
-                e.printStackTrace();
             }
         }
-        dao.saveBanner(banner);
+        try {
+            dao.saveBanner(banner);
+        } catch (DataAccessException e) {
+            LOGGER.error("Unable to save banner", e);
+            throw e;
+        }
     }
 }

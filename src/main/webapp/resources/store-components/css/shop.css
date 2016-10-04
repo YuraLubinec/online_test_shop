@@ -8,6 +8,10 @@ body {
     padding-top: 55px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
+legend {
+	border-bottom: none;
+}
+
 .slide-image {
     width: 100%;
 }
@@ -199,5 +203,3 @@ input.error, textarea.error{
 .help-block {
  color: #a94442
 }
-
-

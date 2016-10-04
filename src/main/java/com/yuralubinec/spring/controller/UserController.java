@@ -1,6 +1,5 @@
 package com.yuralubinec.spring.controller;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,8 +18,6 @@ import com.yuralubinec.spring.validator.UserValidator;
 
 @Controller
 public class UserController {
-
-    private static final Logger LOGGER = Logger.getLogger(UserController.class);
 
     private static final String USER = "user";
 

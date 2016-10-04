@@ -1,6 +1,5 @@
 package com.yuralubinec.spring.controller;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,8 +27,6 @@ import com.yuralubinec.spring.validator.ItemDTOValidator;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
-    private static final Logger LOGGER = Logger.getLogger(AdminController.class);
 
     private static final String ITEM = "itemDTO";
 
@@ -75,7 +72,6 @@ public class AdminController {
     public String updateItem(@PathVariable int id, @Validated @ModelAttribute ItemDTO itemDTO, BindingResult result,
             Model model) {
 
-        Item item = itemServiceImpl.findById(id);
         if (result.hasErrors()) {
             return "itemCreateUpdate";
         }
@@ -87,7 +83,6 @@ public class AdminController {
     public String getItemCreationPage(Model model) {
 
         model.addAttribute(ITEM, new ItemDTO());
-
         return "itemCreateUpdate";
     }
 
@@ -97,7 +92,6 @@ public class AdminController {
         if (result.hasErrors()) {
             return "itemCreateUpdate";
         }
-
         itemServiceImpl.save(itemDTO);
         return "redirect:/";
     }

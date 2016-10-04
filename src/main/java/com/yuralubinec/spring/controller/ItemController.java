@@ -64,9 +64,7 @@ public class ItemController {
         List<Banner> banners = bannerServiceImpl.getAllBanners();
         List<Item> itemList = itemServiceImpl.findAll();
         int size = banners.size();
-
         if (size != 0 && size <= ALOWED_BANNER_QUANTITY) {
-
             model.addAttribute(ACTIVE_BANNER, banners.get(size - ACTIVE_BANNER_INDEX).getId());
             model.addAttribute(BANNERS_FOR_CAROUSEL, banners.subList(0, size - ACTIVE_BANNER_INDEX));
         } else if (size > ALOWED_BANNER_QUANTITY) {
@@ -109,7 +107,6 @@ public class ItemController {
     public @ResponseBody String addItemToUserCart(@RequestBody int id) {
 
         User user = null;
-
         try {
             user = userServiceImpl
                     .findById(Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName()));

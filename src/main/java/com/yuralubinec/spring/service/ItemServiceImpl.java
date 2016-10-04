@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,27 +25,42 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     @Override
     public Item findById(int id) {
-        
-        return dao.findById(id);
+
+        try {
+            return dao.findById(id);
+        } catch (DataAccessException e) {
+            LOGGER.error("Unable to load item with id" + id, e);
+            throw e;
+        }
     }
 
     @Transactional
     @Override
     public List<Item> findWithFilter(String name) {
-        
-        return dao.findItemsWithFilter(name);
+
+        try {
+            return dao.findItemsWithFilter(name);
+        } catch (DataAccessException e) {
+            LOGGER.error("Unable to get item with name" + name, e);
+            throw e;
+        }
     }
 
     @Transactional
     @Override
     public List<Item> findAll() {
-       
-        return dao.findAllItems();
+
+        try {
+            return dao.findAllItems();
+        } catch (DataAccessException e) {
+            LOGGER.error("Unable to load items from DB", e);
+            throw e;
+        }
     }
 
     @Transactional
     @Override
-    public void save (ItemDTO itemDTO) {
+    public void save(ItemDTO itemDTO) {
 
         Item item = new Item();
         item.setName(itemDTO.getName());
@@ -59,21 +75,38 @@ public class ItemServiceImpl implements ItemService {
             }
 
         }
-        dao.save(item);
+        try {
+            dao.save(item);
+        } catch (DataAccessException e) {
+            LOGGER.error("Unable to save item", e);
+            throw e;
+        }
     }
 
     @Transactional
     @Override
     public void delete(int id) {
-        
-        dao.delete(id);
+
+        try {
+            dao.delete(id);
+        } catch (DataAccessException e) {
+            LOGGER.error("Unable to delete item with id" + id, e);
+            throw e;
+        }
     }
 
     @Transactional
     @Override
     public void update(ItemDTO item) {
-       
-        Item entity = dao.findById(item.getId());
+
+        Item entity = null;
+        int id = item.getId();
+        try {
+            entity = dao.findById(id);
+        } catch (DataAccessException e) {
+            LOGGER.error("Unable to get item with id" + id, e);
+            throw e;
+        }
         if (entity != null) {
             entity.setName(item.getName());
             entity.setDescription(item.getDescription());

@@ -3,7 +3,6 @@ package com.yuralubinec.spring.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class LoginLogoutController {
 
-	private static final Logger LOGGER = Logger.getLogger(LoginLogoutController.class);
 	private static final String SUCCES = "succes";
+    private static final String MESSAGE = "message";
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String getLoginPage(Model model) {
@@ -43,7 +42,7 @@ public class LoginLogoutController {
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String error403(Model model) {
 
-		model.addAttribute("message", "You don't have permission to access this page");
+		model.addAttribute(MESSAGE, "You don't have permission to access this page");
 		return "error";
 	}
 

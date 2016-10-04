@@ -12,22 +12,19 @@
         <fieldset>
 
           <form:hidden path="id" />
-
-          <div class="">
+    
             <c:if test="${not empty param.registrationSuccess}">
-              <div class="">
+              <div class="alert alert-success">
                 <strong>Success!</strong> Account has been successfully created!
               </div>
             </c:if>
-          </div>
-
-          <div class="">
-            <c:if test="${not empty param.updateSuccess}">
-              <div class="">
+  
+           <c:if test="${not empty param.updateSuccess}">
+              <div class="alert alert-success">
                 <strong>Success!</strong> Account has been successfully updated!
               </div>
             </c:if>
-          </div>
+       
 
           <legend>User profile info</legend>
 
