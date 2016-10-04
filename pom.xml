@@ -195,12 +195,6 @@
       <version>${commons-lang3-version}</version>
     </dependency>
     
-    <dependency>
-      <groupId>org.apache.velocity</groupId>
-      <artifactId>velocity</artifactId>
-      <version>${apache-velocity-version}</version>
-    </dependency>
-
 	<dependency>
 	  <groupId>commons-fileupload</groupId>
 	  <artifactId>commons-fileupload</artifactId>
