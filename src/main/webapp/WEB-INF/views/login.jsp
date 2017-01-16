@@ -28,7 +28,7 @@
 
           <form action="${pageContext.request.contextPath}/loginCheck" method="POST">
             <fieldset>
-              <input class="form-control email-field" type="email" name="username" placeholder="Email address" autofocus required>
+              <input class="form-control email-field" type="email" name="username" placeholder="email address" autofocus required>
               <input class="form-control" type="password" name="password" placeholder="enter password" required>
               <input type="submit" class="btn btn-lg btn-primary btn-block" value="Login" />
             </fieldset>

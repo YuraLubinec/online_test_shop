@@ -120,6 +120,7 @@ public class UserServiceImpl implements UserService {
             entity.setName(user.getName());
             entity.setPassword(user.getPassword());
             entity.setSurname(user.getSurname());
+            System.out.println(user);
             entity.setUserItems(user.getUserItems());
         }
     }

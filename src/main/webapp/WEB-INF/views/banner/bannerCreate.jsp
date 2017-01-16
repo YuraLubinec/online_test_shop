@@ -6,7 +6,7 @@
   <div class="row pull-down">
     <div class="col-md-3">
 
-      <form:form method="POST" modelAttribute="bannerDTO" class="" enctype="multipart/form-data">
+      <form:form method="POST" modelAttribute="bannerDTO" class="form-group" enctype="multipart/form-data">
 
 		<legend>New banner</legend>
 		

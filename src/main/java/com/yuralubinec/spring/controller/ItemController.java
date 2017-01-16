@@ -43,7 +43,7 @@ public class ItemController {
     private static final String ACTIVE_BANNER = "activeBannerId";
     private static final int ALOWED_BANNER_QUANTITY = 3;
     private static final int ACTIVE_BANNER_INDEX = 1;
-
+    
     @Autowired
     ItemService itemServiceImpl;
 
@@ -117,6 +117,7 @@ public class ItemController {
             try (ServletOutputStream outputStream = response.getOutputStream()) {
                 FileCopyUtils.copy(data, outputStream);
             } catch (IOException e) {
+              LOGGER.error("Can`t add photo to output stream", e);
             }
         }
     }
@@ -137,7 +138,7 @@ public class ItemController {
         } catch (NullPointerException e) {
             LOGGER.error("Security problem, user is not authorised", e);
             throw e;
-        }
+        }       
 
         List<Item> items = user.getUserItems();
         Item item = itemServiceImpl.findById(id);
@@ -149,6 +150,9 @@ public class ItemController {
         } else {
             return appContext.getMessage("Item.already.exist", null, null);
         }
+        
+        
+        
     }
 
     /**
