@@ -35,163 +35,173 @@ import com.yuralubinec.spring.service.UserService;
 @Controller
 public class ItemController {
 
-    private static final Logger LOGGER = Logger.getLogger(ItemController.class);
+  private static final Logger LOGGER = Logger.getLogger(ItemController.class);
 
-    public static final String ITEMS = "items";
-    private static final String ITEM = "item";
-    private static final String BANNERS_FOR_CAROUSEL = "banners";
-    private static final String ACTIVE_BANNER = "activeBannerId";
-    private static final int ALOWED_BANNER_QUANTITY = 3;
-    private static final int ACTIVE_BANNER_INDEX = 1;
-    
-    @Autowired
-    ItemService itemServiceImpl;
+  public static final String ITEMS = "items";
+  private static final String ITEM = "item";
+  private static final String BANNERS_FOR_CAROUSEL = "banners";
+  private static final String ACTIVE_BANNER = "activeBannerId";
+  private static final int ALOWED_BANNER_QUANTITY = 3;
+  private static final int ACTIVE_BANNER_INDEX = 1;
 
-    @Autowired
-    UserService userServiceImpl;
+  @Autowired
+  ItemService itemServiceImpl;
 
-    @Autowired
-    BannerService bannerServiceImpl;
+  @Autowired
+  UserService userServiceImpl;
 
-    @Autowired
-    ApplicationContext appContext;
+  @Autowired
+  BannerService bannerServiceImpl;
 
-    /**
-     * Retrieves home page.
-     * 
-     * @param itemFilterDTO {@link ItemFilterDTO} with filter conditions
-     * @param model {@link Model} object
-     * @return name of view
-     */
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getAllItems(@ModelAttribute ItemFilterDTO itemFilterDTO, Model model) {
+  @Autowired
+  ApplicationContext appContext;
 
-        String filterName = itemFilterDTO.getItemNameFilter();
-        List<Banner> banners = bannerServiceImpl.getAllBanners();
-        List<Item> itemList = itemServiceImpl.findAll();
-        int size = banners.size();
-        if (size != 0 && size <= ALOWED_BANNER_QUANTITY) {
-            model.addAttribute(ACTIVE_BANNER, banners.get(size - ACTIVE_BANNER_INDEX).getId());
-            model.addAttribute(BANNERS_FOR_CAROUSEL, banners.subList(0, size - ACTIVE_BANNER_INDEX));
-        } else if (size > ALOWED_BANNER_QUANTITY) {
-            model.addAttribute(ACTIVE_BANNER, banners.get(size - ACTIVE_BANNER_INDEX).getId());
-            model.addAttribute(BANNERS_FOR_CAROUSEL,
-                    banners.subList(size - ALOWED_BANNER_QUANTITY, size - ACTIVE_BANNER_INDEX));
-        }
+  /**
+   * Retrieves home page.
+   * 
+   * @param itemFilterDTO
+   *          {@link ItemFilterDTO} with filter conditions
+   * @param model
+   *          {@link Model} object
+   * @return name of view
+   */
+  @RequestMapping(value = "/", method = RequestMethod.GET)
+  public String getAllItems(@ModelAttribute ItemFilterDTO itemFilterDTO, Model model) {
 
-        if (filterName != null && filterName.length() != 0) {
-            model.addAttribute(ITEMS, itemServiceImpl.findWithFilter(filterName));
-        } else {
-            model.addAttribute(ITEMS, itemList);
-        }
-        return "items";
+    String filterName = itemFilterDTO.getItemNameFilter();
+    List<Banner> banners = bannerServiceImpl.getAllBanners();
+    List<Item> itemList = itemServiceImpl.findAll();
+    int size = banners.size();
+    if (size != 0 && size <= ALOWED_BANNER_QUANTITY) {
+      model.addAttribute(ACTIVE_BANNER, banners.get(size - ACTIVE_BANNER_INDEX).getId());
+      model.addAttribute(BANNERS_FOR_CAROUSEL, banners.subList(0, size - ACTIVE_BANNER_INDEX));
+    } else if (size > ALOWED_BANNER_QUANTITY) {
+      model.addAttribute(ACTIVE_BANNER, banners.get(size - ACTIVE_BANNER_INDEX).getId());
+      model.addAttribute(BANNERS_FOR_CAROUSEL,
+          banners.subList(size - ALOWED_BANNER_QUANTITY, size - ACTIVE_BANNER_INDEX));
     }
 
-    /**
-     * Retrieves item info page.
-     * 
-     * @param id {@link Item} identifier
-     * @param model {@link Model} object
-     * @return name of view
-     */
-    @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
-    public String getItemInfo(@PathVariable int id, Model model) {
+    if (filterName != null && filterName.length() != 0) {
+      model.addAttribute(ITEMS, itemServiceImpl.findWithFilter(filterName));
+    } else {
+      model.addAttribute(ITEMS, itemList);
+    }
+    return "items";
+  }
 
-        model.addAttribute(ITEM, itemServiceImpl.findById(id));
-        return "itemInfo";
+  /**
+   * Retrieves item info page.
+   * 
+   * @param id
+   *          {@link Item} identifier
+   * @param model
+   *          {@link Model} object
+   * @return name of view
+   */
+  @RequestMapping(value = "/item/{id}", method = RequestMethod.GET)
+  public String getItemInfo(@PathVariable int id, Model model) {
+
+    model.addAttribute(ITEM, itemServiceImpl.findById(id));
+    return "itemInfo";
+  }
+
+  /**
+   * Retrieves item photo.
+   * 
+   * @param response
+   *          {@link HttpServletResponse} object
+   * @param id
+   *          {@link Item} identifier
+   */
+  @RequestMapping(value = "/item/{id}/photo", method = RequestMethod.GET)
+  public void getItemPhoto(HttpServletResponse response, @PathVariable int id) {
+
+    byte[] data = itemServiceImpl.findById(id).getPhoto();
+    if (data != null) {
+      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+      response.setContentLength(data.length);
+      try (ServletOutputStream outputStream = response.getOutputStream()) {
+        FileCopyUtils.copy(data, outputStream);
+      } catch (IOException e) {
+        LOGGER.error("Can`t add photo to output stream", e);
+      }
+    }
+  }
+
+  /**
+   * Handles adding items to cart. If success, returns success message, else
+   * returns fail message .
+   * 
+   * @param id
+   *          of item which should be added
+   */
+  @RequestMapping(value = "/item/addToUserCart", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
+      "text/html; charset=UTF-8" })
+  public @ResponseBody String addItemToUserCart(@RequestBody int id) {
+
+    User user = null;
+    try {
+      user = userServiceImpl
+          .findById(Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName()));
+    } catch (NullPointerException e) {
+      LOGGER.error("Security problem, user is not authorised", e);
+      throw e;
     }
 
-    /**
-     * Retrieves item photo.
-     * 
-     * @param response {@link HttpServletResponse} object
-     * @param id {@link Item} identifier
-     */
-    @RequestMapping(value = "/item/{id}/photo", method = RequestMethod.GET)
-    public void getItemPhoto(HttpServletResponse response, @PathVariable int id) {
+    List<Item> items = user.getUserItems();
+    Item item = itemServiceImpl.findById(id);
 
-        byte[] data = itemServiceImpl.findById(id).getPhoto();
-        if (data != null) {
-            response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-            response.setContentLength(data.length);
-            try (ServletOutputStream outputStream = response.getOutputStream()) {
-                FileCopyUtils.copy(data, outputStream);
-            } catch (IOException e) {
-              LOGGER.error("Can`t add photo to output stream", e);
-            }
-        }
+    if (!items.contains(item)) {
+      items.add(item);
+      userServiceImpl.update(user);
+      return appContext.getMessage("Item.succes", null, null);
+    } else {
+      return appContext.getMessage("Item.already.exist", null, null);
     }
 
-    /**
-     * Handles adding items to cart. If success, returns success message, else returns fail message .
-     * 
-     * @param id of item which should be added
-     */
-    @RequestMapping(value = "/item/addToUserCart", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
-            "text/html; charset=UTF-8" })
-    public @ResponseBody String addItemToUserCart(@RequestBody int id) {
+  }
 
-        User user = null;
-        try {
-            user = userServiceImpl
-                    .findById(Integer.parseInt(SecurityContextHolder.getContext().getAuthentication().getName()));
-        } catch (NullPointerException e) {
-            LOGGER.error("Security problem, user is not authorised", e);
-            throw e;
-        }       
+  /**
+   * Handles removing items from cart. If success, returns 204 (NO_CONTENT) HTTP
+   * status.
+   * 
+   * @param id
+   *          of item which should be removed
+   */
+  @RequestMapping(value = "/item/deleteFromUserCart", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void deleteItemFromUserCart(@RequestBody int id) {
 
-        List<Item> items = user.getUserItems();
-        Item item = itemServiceImpl.findById(id);
-
-        if (!items.contains(item)) {
-            items.add(item);
-            userServiceImpl.update(user);
-            return appContext.getMessage("Item.succes", null, null);
-        } else {
-            return appContext.getMessage("Item.already.exist", null, null);
-        }
-        
-        
-        
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    try {
+      User user = userServiceImpl.findById(Integer.parseInt(authentication.getName()));
+      user.getUserItems().remove(itemServiceImpl.findById(id));
+      userServiceImpl.update(user);
+    } catch (NullPointerException e) {
+      LOGGER.error("Security problem, user is not authorised", e);
+      throw e;
     }
+  }
 
-    /**
-     * Handles removing items from cart. If success, returns 204 (NO_CONTENT) HTTP status.
-     * 
-     * @param id of item which should be removed
-     */
-    @RequestMapping(value = "/item/deleteFromUserCart", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteItemFromUserCart(@RequestBody int id) {
+  /**
+   * Retrieves banner photo.
+   * 
+   * @param response
+   *          {@link HttpServletResponse} object
+   * @param id
+   *          {@link Banner} identifier
+   */
+  @RequestMapping(value = "/banner/{id}/photo", method = RequestMethod.GET)
+  public void getBannerPhoto(HttpServletResponse response, @PathVariable int id) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        try {
-            User user = userServiceImpl.findById(Integer.parseInt(authentication.getName()));
-            user.getUserItems().remove(itemServiceImpl.findById(id));
-            userServiceImpl.update(user);
-        } catch (NullPointerException e) {
-            LOGGER.error("Security problem, user is not authorised", e);
-            throw e;
-        }
+    byte[] data = bannerServiceImpl.getBunnerById(id).getPhoto();
+    if (data != null) {
+      response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+      response.setContentLength(data.length);
+      try (ServletOutputStream outputStream = response.getOutputStream()) {
+        FileCopyUtils.copy(data, outputStream);
+      } catch (IOException e) {
+      }
     }
-
-    /**
-     * Retrieves banner photo.
-     * 
-     * @param response {@link HttpServletResponse} object
-     * @param id {@link Banner} identifier
-     */
-    @RequestMapping(value = "/banner/{id}/photo", method = RequestMethod.GET)
-    public void getBannerPhoto(HttpServletResponse response, @PathVariable int id) {
-
-        byte[] data = bannerServiceImpl.getBunnerById(id).getPhoto();
-        if (data != null) {
-            response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-            response.setContentLength(data.length);
-            try (ServletOutputStream outputStream = response.getOutputStream()) {
-                FileCopyUtils.copy(data, outputStream);
-            } catch (IOException e) {
-            }
-        }
-    }
+  }
 }
